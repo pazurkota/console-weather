@@ -1,9 +1,10 @@
-﻿using RestSharp;
+﻿using console_weather.Controller;
+using RestSharp;
 using Newtonsoft.Json.Linq;
 
 namespace console_weather.Model; 
 
-public class APIData {
+public class ApiData {
     // Get API Key from config.json
     private string GetApiKey() {
         var jsonText = File.ReadAllText("config.json");
@@ -16,11 +17,18 @@ public class APIData {
     // Get request from API
     public void GetRequest() {
         string apiKey = GetApiKey();
-        
-        var client = new RestClient("http://api.weatherapi.com/v1/");
-        var requset = new RestRequest($"current.json?key={apiKey}&q=Wroclaw&aqi=no");
+        string cityName = Entry.GetCityName();
 
-        var response = client.Execute(requset).Content;
-        Console.WriteLine(response);
+        try {
+            var client = new RestClient("http://api.weatherapi.com/v1/");
+            var requset = new RestRequest($"current.json?key={apiKey}&q={cityName}&aqi=no");
+            
+            var response = client.Execute(requset).Content;
+            Console.WriteLine(response);
+        }
+        catch (Exception e) {
+            Console.WriteLine($"Error while executing program: {e}");
+            throw;
+        }
     }
 }

@@ -2,5 +2,5 @@
 using console_weather.Model;
 
 // Show API respond
-APIData data = new APIData();
+ApiData data = new ApiData();
 data.GetRequest();
