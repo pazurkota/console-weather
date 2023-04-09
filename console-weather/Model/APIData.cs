@@ -2,4 +2,7 @@
 
 public class APIData {
     // TODO Create class to get data from API
+    private void getDataFromApi() {
+        
+    }
 }
