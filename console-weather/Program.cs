@@ -1,3 +1,11 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿// "Weather" class example:
+using console_weather.Model;
 
-Console.WriteLine("Hello, World!");
+var weather = new Weather();
+
+weather.City = "Example city";
+weather.Temperature = 15;
+weather.WeatherCondition = "Overcast";
+weather.AlertHeadline = "Severe Thunderstorm Watch";
+
+Console.WriteLine(weather.ToString());
