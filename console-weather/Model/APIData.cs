@@ -1,4 +1,5 @@
 ﻿using console_weather.Controller;
+using Newtonsoft.Json;
 using RestSharp;
 using Newtonsoft.Json.Linq;
 
@@ -15,7 +16,7 @@ public class ApiData {
     }
     
     // Get request from API
-    public string GetRequest() {
+    private string GetRequest() {
         string apiKey = GetApiKey();
         string cityName = Entry.GetCityName();
 
@@ -30,5 +31,21 @@ public class ApiData {
             Console.WriteLine($"Error while executing program: {e}");
             throw;
         }
+    }
+    
+    // Parse data from API
+    public Weather ParseData() {
+        var apiData = GetRequest();
+        var jsonText = JsonConvert.DeserializeObject<Weather>(apiData);
+        
+        // Check if JSON file is null
+        if (jsonText == null) {
+            throw new NullReferenceException("The JSON file is empty or null");
+        }
+        
+        return new Weather() {
+            Current = jsonText.Current,
+            Location = jsonText.Location
+        };
     }
 }
