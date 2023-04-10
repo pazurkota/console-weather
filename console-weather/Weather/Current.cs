@@ -1,12 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace console_weather.Weather; 
-
-// Get weather conditon
-public class Condition {
-    [JsonProperty("text")]
-    public string ConditionState { get; set; }
-}
+namespace console_weather.Weather;
 
 // Get current weather state
 public class Current {

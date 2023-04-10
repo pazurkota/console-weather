@@ -1,5 +1,6 @@
 ﻿// "Weather" class example:
-using console_weather.Model;
+
+using console_weather;
 using Newtonsoft.Json;
 
 // Show API respond

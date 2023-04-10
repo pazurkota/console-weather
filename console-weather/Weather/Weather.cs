@@ -1,6 +1,4 @@
-﻿using console_weather.Model;
-
-namespace console_weather.Weather;
+﻿namespace console_weather.Weather;
 
 // Weather class itself
 public class Weather {
