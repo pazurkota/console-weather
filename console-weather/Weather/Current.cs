@@ -10,10 +10,17 @@ public class Condition {
 
 // Get current weather state
 public class Current {
-    [JsonProperty("temp_c")]
-    public decimal Temperature { get; set; }
     public Condition Condition { get; set; }
     
+    [JsonProperty("last_updated")]
+    public string LastUpdated { get; set; }
+
+    [JsonProperty("temp_c")]
+    public decimal Temperature { get; set; }
+    
+    [JsonProperty("feelslike_c")]
+    public decimal FeelsLikeTemp { get; set; }
+
     [JsonProperty("wind_kph")]
     public decimal WindSpeed { get; set; }
     
