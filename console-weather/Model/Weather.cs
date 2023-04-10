@@ -10,9 +10,9 @@ public class Weather {
     public string AlertHeadline { get; set; }
 
     public override string ToString() {
-        string str = $"Weather for {City} at {Date}";
+        string str = $"Weather for {City} at {Date}:";
 
-        str += $"\nAverage Temperature: {Temperature}";
+        str += $"\n\nAverage Temperature: {Temperature}";
         str += $"\nWeather Condition: {WeatherCondition}";
         str += $"\nWind Speed: {WindSpeed}";
         str += $"\nAir Pressure: {Pressure}";

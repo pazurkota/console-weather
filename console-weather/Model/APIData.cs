@@ -15,7 +15,7 @@ public class ApiData {
     }
     
     // Get request from API
-    public void GetRequest() {
+    public string GetRequest() {
         string apiKey = GetApiKey();
         string cityName = Entry.GetCityName();
 
@@ -24,7 +24,7 @@ public class ApiData {
             var requset = new RestRequest($"current.json?key={apiKey}&q={cityName}&aqi=no");
             
             var response = client.Execute(requset).Content;
-            Console.WriteLine(response);
+            return response;
         }
         catch (Exception e) {
             Console.WriteLine($"Error while executing program: {e}");
