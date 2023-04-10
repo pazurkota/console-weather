@@ -6,6 +6,8 @@ using Newtonsoft.Json.Linq;
 namespace console_weather.Model; 
 
 public class ApiData {
+    private const string BASE_URL = "http://api.weatherapi.com/v1/"; // Base API URL
+    
     // Get API Key from config.json
     private string GetApiKey() {
         var jsonText = File.ReadAllText("config.json");
@@ -21,7 +23,7 @@ public class ApiData {
         string cityName = Entry.GetCityName();
 
         try {
-            var client = new RestClient("http://api.weatherapi.com/v1/");
+            var client = new RestClient(BASE_URL);
             var requset = new RestRequest($"current.json?key={apiKey}&q={cityName}&aqi=no");
             
             var response = client.Execute(requset).Content;
@@ -34,16 +36,16 @@ public class ApiData {
     }
     
     // Parse data from API
-    public Weather ParseData() {
+    public Weather.Weather ParseData() {
         var apiData = GetRequest();
-        var jsonText = JsonConvert.DeserializeObject<Weather>(apiData);
+        var jsonText = JsonConvert.DeserializeObject<Weather.Weather>(apiData);
         
         // Check if JSON file is null
         if (jsonText == null) {
             throw new NullReferenceException("The JSON file is empty or null");
         }
         
-        return new Weather() {
+        return new Weather.Weather() {
             Current = jsonText.Current,
             Location = jsonText.Location
         };
