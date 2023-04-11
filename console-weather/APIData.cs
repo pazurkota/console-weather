@@ -6,6 +6,7 @@ namespace console_weather;
 
 public class ApiData {
     private const string BASE_URL = "http://api.weatherapi.com/v1/"; // Base API URL
+    public static string CITYNAME; // City name
     
     // Get API Key from config.json
     private string GetApiKey() {
@@ -19,7 +20,7 @@ public class ApiData {
     // Get request from API
     private string GetRequest() {
         string apiKey = GetApiKey();
-        string cityName = Entry.GetCityName();
+        string cityName = CITYNAME;
 
         try {
             // Client options

@@ -1,6 +1,7 @@
 ﻿using System.CommandLine;
 using System.CommandLine.Builder;
 using System.CommandLine.Parsing;
+using console_weather;
 
 public class Program {
     public static async Task<int> Main(string[] args) {
@@ -21,6 +22,10 @@ public class Program {
         return await parser.InvokeAsync(args).ConfigureAwait(false);
     }
 
-    private static void OnHandle(string str) => 
-        Console.WriteLine($"{str}");
+    private static void OnHandle(string str) {
+        ApiData.CITYNAME = str;
+        ApiData data = new ApiData();
+        
+        Console.WriteLine(data.ParseData());
+    }
 }
