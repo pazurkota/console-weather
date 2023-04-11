@@ -6,6 +6,7 @@ namespace console_weather;
 
 public class ApiData {
     private const string BASE_URL = "http://api.weatherapi.com/v1/"; // Base API URL
+    public static string CITYNAME; // City name
     
     // Get API Key from config.json
     private string GetApiKey() {
@@ -19,13 +20,18 @@ public class ApiData {
     // Get request from API
     private string GetRequest() {
         string apiKey = GetApiKey();
-        string cityName = Entry.GetCityName();
+        string cityName = CITYNAME;
 
         try {
-            var client = new RestClient(BASE_URL);
-            var requset = new RestRequest($"forecast.json?key={apiKey}&q={cityName}&aqi=no&alerts=yes");
+            // Client options
+            var options = new RestClientOptions(BASE_URL) {
+                ThrowOnAnyError = true
+            };
             
-            var response = client.Execute(requset).Content;
+            var client = new RestClient(options);
+            var request = new RestRequest($"forecast.json?key={apiKey}&q={cityName}&aqi=no&alerts=yes");
+
+            var response = client.Execute(request).Content;
             return response;
         }
         catch (Exception e) {
