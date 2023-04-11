@@ -15,7 +15,20 @@ public class Weather {
         str += $"\nAir Pressure: {Current.Pressure} mbar";
         str += $"\nHumidity: {Current.Humidity}%";
         str += $"\nCloud Cover: {Current.Cloud}%";
-        str += $"\n\nWeather Alerts: {Alerts.WeatherAlerts[0].AlertEvent}";
+        str += $"\n\nWeather Alerts:\n{ShowWeatherAlerts()}";
+
+        return str;
+    }
+
+    private string ShowWeatherAlerts() {
+        string str = "";
+
+        if (Alerts.WeatherAlerts.Count > 0) {
+            foreach (var alert in Alerts.WeatherAlerts) {
+                str += $"{alert.AlertEvent} issued by {alert.AlertHeadline}:\n{alert.AlertDescription}\n\n";
+            }
+        }
+        else str = "<none>";
 
         return str;
     }
