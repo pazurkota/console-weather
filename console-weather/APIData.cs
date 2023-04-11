@@ -22,10 +22,15 @@ public class ApiData {
         string cityName = Entry.GetCityName();
 
         try {
-            var client = new RestClient(BASE_URL);
-            var requset = new RestRequest($"forecast.json?key={apiKey}&q={cityName}&aqi=no&alerts=yes");
+            // Client options
+            var options = new RestClientOptions(BASE_URL) {
+                ThrowOnAnyError = true
+            };
             
-            var response = client.Execute(requset).Content;
+            var client = new RestClient(options);
+            var request = new RestRequest($"forecast.json?key={apiKey}&q={cityName}&aqi=no&alerts=yes");
+
+            var response = client.Execute(request).Content;
             return response;
         }
         catch (Exception e) {
