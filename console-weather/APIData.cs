@@ -23,7 +23,7 @@ public class ApiData {
 
         try {
             var client = new RestClient(BASE_URL);
-            var requset = new RestRequest($"current.json?key={apiKey}&q={cityName}&aqi=no");
+            var requset = new RestRequest($"forecast.json?key={apiKey}&q={cityName}&aqi=no&alerts=yes");
             
             var response = client.Execute(requset).Content;
             return response;

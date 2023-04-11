@@ -14,6 +14,7 @@ public class Weather {
         str += $"\nAir Pressure: {Current.Pressure} mbar";
         str += $"\nHumidity: {Current.Humidity}%";
         str += $"\nCloud Cover: {Current.Cloud}%";
+        str += $"\n\nWeather Alerts: ";
 
         return str;
     }
