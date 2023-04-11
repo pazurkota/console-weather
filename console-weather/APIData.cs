@@ -44,9 +44,10 @@ public class ApiData {
             throw new NullReferenceException("The JSON file is empty or null");
         }
         
-        return new Weather.Weather() {
+        return new Weather.Weather {
             Current = jsonText.Current,
-            Location = jsonText.Location
+            Location = jsonText.Location,
+            Alerts = jsonText.Alerts
         };
     }
 }

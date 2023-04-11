@@ -14,5 +14,6 @@ public class Alert {
 
 // A class for multiple weather alerts
 public class Alerts {
+    [JsonProperty("alert")]
     public List<Alert> WeatherAlerts { get; set; }
 }
