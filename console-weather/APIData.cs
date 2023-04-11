@@ -1,9 +1,8 @@
-﻿using console_weather.Controller;
-using Newtonsoft.Json;
-using RestSharp;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RestSharp;
 
-namespace console_weather.Model; 
+namespace console_weather; 
 
 public class ApiData {
     private const string BASE_URL = "http://api.weatherapi.com/v1/"; // Base API URL
@@ -24,7 +23,7 @@ public class ApiData {
 
         try {
             var client = new RestClient(BASE_URL);
-            var requset = new RestRequest($"current.json?key={apiKey}&q={cityName}&aqi=no");
+            var requset = new RestRequest($"forecast.json?key={apiKey}&q={cityName}&aqi=no&alerts=yes");
             
             var response = client.Execute(requset).Content;
             return response;
@@ -45,9 +44,10 @@ public class ApiData {
             throw new NullReferenceException("The JSON file is empty or null");
         }
         
-        return new Weather.Weather() {
+        return new Weather.Weather {
             Current = jsonText.Current,
-            Location = jsonText.Location
+            Location = jsonText.Location,
+            Alerts = jsonText.Alerts
         };
     }
 }

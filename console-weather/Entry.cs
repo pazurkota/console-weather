@@ -1,4 +1,4 @@
-﻿namespace console_weather.Controller; 
+﻿namespace console_weather; 
 
 public class Entry {
     public static string GetCityName() {
