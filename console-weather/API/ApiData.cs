@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
-namespace console_weather; 
+namespace console_weather.API; 
 
 public class ApiData {
     private const string BASE_URL = "http://api.weatherapi.com/v1/"; // Base API URL
