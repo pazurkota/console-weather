@@ -6,6 +6,21 @@
         <RootNamespace>console_weather</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        
+        <PackAsTool>true</PackAsTool>
+        <ToolCommandName>weather</ToolCommandName>
+        <PackageOutputPath>./nupkg</PackageOutputPath>
+
+        <Authors>pazurk0ta</Authors>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/pazurkota/console-weather</PackageProjectUrl>
+        <Description>Simple CLI App to check weather in C#</Description>
+        <PackageVersion>1.0</PackageVersion>
+        <Title>Console Weather</Title>
+        <Copyright>Copyright (c) 2023 pazurk0ta</Copyright>
+        <RepositoryUrl>https://github.com/pazurkota/console-weather</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
