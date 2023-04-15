@@ -9,7 +9,7 @@ namespace console_weather;
 public class Program {
     public static async Task<int> Main(string[] args) {
         var cityOption = new Option<string>(
-            new [] {"--c", "--city"},
+            new [] {"-c", "--city"},
             "Get city name"
         );
 

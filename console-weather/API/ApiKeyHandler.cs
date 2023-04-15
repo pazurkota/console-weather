@@ -24,7 +24,9 @@ public class ApiKeyHandler {
     public static string? SetApiKey() {
         string filePath = CONFIGPATH;
 
-        Console.Write("\nPlease input API Key here:\nAPI Key > ");
+        Console.Write("\nYour API Key is invalid or missing." +
+                      "\nGet your personal key here: https://www.weatherapi.com" +
+                      "\nAPI Key > ");
         
         string apiKey = Console.ReadLine()!;
         string configText = File.ReadAllText(filePath);
