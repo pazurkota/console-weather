@@ -15,7 +15,7 @@ public class ApiKeyHandler {
     }
     
     // Set API Key 
-    private static void SetApiKey() {
+    public static string? SetApiKey() {
         string filePath = "config.json";
         
         // Check if file exist, and if not, create one
@@ -32,5 +32,7 @@ public class ApiKeyHandler {
         config["api-key"] = apiKey;
         
         File.WriteAllText(filePath, config.ToString());
+
+        return GetApiKey();
     }
 }
