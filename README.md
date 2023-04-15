@@ -3,63 +3,71 @@ Console Weather project is a simple application project to check weather in cons
 
 
 
-
-![MIT License](https://img.shields.io/badge/License-MIT-green.svg) 
-![Release](https://img.shields.io/github/v/release/pazurkota/console-weather?include_prereleases)
-![Repo Size](https://img.shields.io/github/repo-size/pazurkota/console-weather)
-
-
 ## Features
 
 - Show Temperature and Weather Condition
 - Show current Wind Speed and Direction
 - Show Air Pressure, Humidity and Cloud Cover
-- Show Weather Alerts (if exist)
+- Show Weather Alerts (if exists)
 
 
 
 ## Installation
 
-#### Requirements:
-- [.NET 7.0 or newer](https://dotnet.microsoft.com/en-us/download)
-- [Weather API Key](https://www.weatherapi.com)
-    
-#### Installation:
-1. Clone the repository
-2. Create `config.json` file in root directory with the following content:
-```json
-{
-  "api-key": "YOUR WEATHER API KEY HERE"
-}
+If you installed [.NET 7.0 or newer](https://dotnet.microsoft.com/en-us/download), just simply paste this command into console:
+```bash
+dotnet tool install --global console-weather --version 1.0.0
 ```
-3. Insert the following Program Arguments: 
-`-c "City of choice"` OR `--city "City of choice"`
-## Example Output:
-```
-Weather for London, United Kingdom (last update: 2023-04-11 09:30):
+If you running app first time, it will ask you for the [Weather API](https://www.weatherapi.com/):
+``` 
+Error: API returned status code Forbidden
 
-Teperature: 9,0°C (feels like: 6,4°C)
+Your API Key is invalid or missing.
+Get your personal key here: https://www.weatherapi.com
+API Key >
+```
+Enter your personal API key and enjoy using it!
+
+The key is kept in `C:\Users\USERNAME\Documents\weather_data`
+## Usage
+To use application, just simply type:
+```bash
+weather -c "City Name"
+```
+
+
+## Demo
+
+Example input:
+```
+weather -c "London"
+```
+
+Example output:
+```
+Weather for London, United Kingdom (last update: 2023-04-15 16:00):
+
+Teperature: 14,0°C (feels like: 13,7°C)
 Weather Condition: Partly cloudy
-Wind Speed: 16,9kmp (WSW)
-Air Pressure: 1013,0 mbar
-Humidity: 76%
+Wind Speed: 13,0kmp (WNW)
+Air Pressure: 1021,0 mbar
+Humidity: 59%
 Cloud Cover: 25%
 
 Weather Alerts:
-Yellow wind warning issued by UK Met Office:
-A developing area of low pressure running north through the Irish Sea is likely to bring a spell of strong winds, accompanied by 
-some heavy rain, to parts of central and western England, Wales, southwest Scotland and the east of Northern Ireland. Gusts of 45-50 
-mph are possible inland and perhaps in excess of 60 mph for a time around some Irish Sea coastal areas. For further details see 
-https://www.metoffice.gov.uk/weather/warnings-and-advice/uk-warnings
+<none>
 ```
+## Acknowledgements
+
+ - [NuGet Package page](https://www.nuget.org/packages/console-weather/)
+
+
+## License and support
+This project is under [MIT License](https://github.com/pazurkota/console-weather/blob/master/LICENCE.md)
+
+For any project-related cases, please contact me on Discord: pazurkota#1001
 
 
 ## Lessons Learned
 
-This project basicly was created to learn how to work with the API (in this case, weather API) and creating CLI apps using C#
-
-
-## License and support
-This project is under [MIT License](https://choosealicense.com/licenses/mit/)
-
-For any project-related things, please contact me on Discord: pazurkota#1001
+This project basically was created to learn how to work with the API (in this case, weather API) and creating CLI apps using C#
