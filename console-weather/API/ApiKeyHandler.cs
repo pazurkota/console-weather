@@ -1,11 +1,17 @@
 ﻿using Newtonsoft.Json.Linq;
+using static console_weather.API.JsonHandler;
 
 namespace console_weather.API; 
 
 public class ApiKeyHandler {
     // Get API Key from config.json
     public static string? GetApiKey() {
-        var filePath = "config.json";
+        var filePath = CONFIGPATH;
+        
+        if (!File.Exists(filePath)) {
+            CreateConfigJsonFile();
+        }
+        
         var jsonText = File.ReadAllText(filePath);
         
         JObject config = JObject.Parse(jsonText);
@@ -16,13 +22,8 @@ public class ApiKeyHandler {
     
     // Set API Key 
     public static string? SetApiKey() {
-        string filePath = "config.json";
-        
-        // Check if file exist, and if not, create one
-        if (!File.Exists(filePath)) {
-            File.Create(filePath);
-        }
-        
+        string filePath = CONFIGPATH;
+
         Console.Write("\nPlease input API Key here:\nAPI Key > ");
         
         string apiKey = Console.ReadLine()!;
