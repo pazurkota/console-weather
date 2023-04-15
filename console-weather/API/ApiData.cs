@@ -19,7 +19,7 @@ public class ApiData {
     
     // Get request from API
     private string GetRequest() {
-        string apiKey = ApiKeyHandler.GetApiKey();
+        string? apiKey = ApiKeyHandler.GetApiKey();
         string cityName = CITYNAME;
 
         try {
