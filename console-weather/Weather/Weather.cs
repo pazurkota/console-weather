@@ -9,7 +9,7 @@ public class Weather {
     public override string ToString() {
         string str = $"Weather for {Location.Name}, {Location.Country} (last update: {Current.LastUpdated}):";
 
-        str += $"\n\nTeperature: {Current.Temperature}°C (feels like: {Current.FeelsLikeTemp}°C)";
+        str += $"\n\nTemperature: {Current.Temperature}°C (feels like: {Current.FeelsLikeTemp}°C)";
         str += $"\nWeather Condition: {Current.Condition.ConditionState}";
         str += $"\nWind Speed: {Current.WindSpeed}kmp ({Current.WindDirection})";
         str += $"\nAir Pressure: {Current.Pressure} mbar";

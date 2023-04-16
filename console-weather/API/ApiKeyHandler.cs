@@ -21,7 +21,7 @@ public class ApiKeyHandler {
     }
     
     // Set API Key 
-    public static string? SetApiKey() {
+    public static void SetApiKey() {
         string filePath = CONFIGPATH;
 
         Console.Write("\nYour API Key is invalid or missing." +
@@ -35,7 +35,5 @@ public class ApiKeyHandler {
         config["api-key"] = apiKey;
         
         File.WriteAllText(filePath, config.ToString());
-
-        return GetApiKey();
     }
 }
