@@ -39,7 +39,7 @@ weather -c "City Name"
 ## Demo
 
 Example input:
-```
+```bash
 weather -c "London"
 ```
 
