@@ -32,10 +32,6 @@ The key is kept in `C:\Users\USERNAME\Documents\weather_data`
 ## Usage
 To use application, just simply type:
 ```bash
-weather
-```
-To get weather info from a specified city, type:
-```bash
 weather -c "City Name"
 ```
 
@@ -43,7 +39,7 @@ weather -c "City Name"
 ## Demo
 
 Example input:
-```
+```bash
 weather -c "London"
 ```
 
@@ -63,7 +59,7 @@ Weather Alerts:
 ```
 ## Acknowledgements
 
- - [NuGet Page](https://www.nuget.org/packages/console-weather/)
+ - [NuGet Package page](https://www.nuget.org/packages/console-weather/)
 
 
 ## License and support
@@ -75,4 +71,3 @@ For any project-related cases, please contact me on Discord: pazurkota#1001
 ## Lessons Learned
 
 This project basically was created to learn how to work with the API (in this case, weather API) and creating CLI apps using C#
-
