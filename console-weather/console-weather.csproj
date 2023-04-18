@@ -15,12 +15,13 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/pazurkota/console-weather</PackageProjectUrl>
         <Description>Simple CLI App to check weather in C#</Description>
-        <PackageVersion>1.0</PackageVersion>
+        <PackageVersion>1.1</PackageVersion>
+        <VersionPrefix>1.1</VersionPrefix>
         <Title>Console Weather</Title>
         <Copyright>Copyright (c) 2023 pazurk0ta</Copyright>
         <RepositoryUrl>https://github.com/pazurkota/console-weather</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+        <PackageReleaseNotes>Added auto-city lookup via IP</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
