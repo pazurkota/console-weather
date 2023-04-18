@@ -32,6 +32,10 @@ The key is kept in `C:\Users\USERNAME\Documents\weather_data`
 ## Usage
 To use application, just simply type:
 ```bash
+weather
+```
+To get weather info from a specified city, type:
+```bash
 weather -c "City Name"
 ```
 
