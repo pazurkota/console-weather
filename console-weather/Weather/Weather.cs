@@ -21,14 +21,16 @@ public class Weather {
     }
 
     private string ShowWeatherAlerts() {
-        string str = "";
-
-        if (Alerts.WeatherAlerts.Count > 0) {
-            foreach (var alert in Alerts.WeatherAlerts) {
-                str += $"{alert.AlertEvent} issued by {alert.AlertHeadline}:\n{alert.AlertDescription}\n\n";
-            }
+        // Return "<none>" if no alerts issued
+        if (Alerts.WeatherAlerts.Count < 0) {
+            return "<none>";
         }
-        else str = "<none>";
+
+        string str = "";
+        
+        foreach (var alert in Alerts.WeatherAlerts) {
+            str += $"{alert.AlertEvent} issued by {alert.AlertHeadline}:\n{alert.AlertDescription}\n\n";
+        }
 
         return str;
     }
