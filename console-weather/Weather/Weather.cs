@@ -22,7 +22,7 @@ public class Weather {
 
     private string ShowWeatherAlerts() {
         // Return "<none>" if no alerts issued
-        if (Alerts.WeatherAlerts.Count < 0) {
+        if (Alerts.WeatherAlerts.Count == 0) {
             return "<none>";
         }
 

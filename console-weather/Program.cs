@@ -26,6 +26,9 @@ public class Program {
     }
 
     private static void OnHandle(string str) {
+        // Get city name from IP address if city name not provided
+        str ??= "auto:ip";
+        
         ApiData.CITYNAME = str;
         ApiData data = new ApiData();
         
