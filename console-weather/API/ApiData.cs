@@ -21,6 +21,7 @@ public class ApiData {
             // Get API Key if invalid or not given
             while (!CheckApiKeyValidity(apiKey)) {
                 SetApiKey();
+                apiKey = GetApiKey();
             }
             
             // Client options
