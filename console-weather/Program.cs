@@ -13,10 +13,17 @@ public class Program {
             "Get city name"
         );
 
+        var alertsOption = new Option<bool>(
+            "--no-alerts",
+            () => false,
+            "Show weather alerts"
+        );
+
         var rootCommand = new RootCommand() {
-            cityOption
+            cityOption,
+            alertsOption
         };
-        rootCommand.SetHandler(OnHandle, cityOption);
+        rootCommand.SetHandler(OnHandle, cityOption, alertsOption);
 
         var commandLineBuilder = new CommandLineBuilder(rootCommand)
             .UseDefaults();
@@ -25,7 +32,7 @@ public class Program {
         return await parser.InvokeAsync(args).ConfigureAwait(false);
     }
 
-    private static void OnHandle(string str) {
+    private static void OnHandle(string str, bool showAlerts) {
         // Get city name from IP address if city name not provided
         str ??= "auto:ip";
         
