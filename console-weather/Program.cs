@@ -1,8 +1,8 @@
 ﻿using System.CommandLine;
 using System.CommandLine.Builder;
 using System.CommandLine.Parsing;
-using console_weather;
 using console_weather.API;
+using static console_weather.Settings;
 
 namespace console_weather;
 
@@ -33,12 +33,12 @@ public class Program {
     }
 
     private static void OnHandle(string str, bool showAlerts) {
-        // Get city name from IP address if city name not provided
-        str ??= "auto:ip";
+        // Settings
+        CityName = str;
+        ShowWeatherAlerts = showAlerts;
         
-        ApiData.CITYNAME = str;
+        // Parse and show data
         ApiData data = new ApiData();
-        
         Console.WriteLine(data.ParseData());
     }
 }

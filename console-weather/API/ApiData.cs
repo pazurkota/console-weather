@@ -5,17 +5,17 @@ using System.Net;
 using Newtonsoft.Json;
 using RestSharp;
 using static console_weather.API.ApiKeyHandler;
+using static console_weather.Settings;
 
 namespace console_weather.API; 
 
 public class ApiData {
     private const string BASE_URL = "http://api.weatherapi.com/v1/"; // Base API URL
-    public static string CITYNAME; // City name
 
     // Get request from API
     private string GetRequest() {
         string? apiKey = GetApiKey();
-        string cityName = CITYNAME;
+        string cityName = CityName;
 
         try {
             // Get API Key if invalid or not given
