@@ -7,32 +7,28 @@ public class Weather {
     public Alerts Alerts;
 
     public override string ToString() {
-        string str = $"Weather for {Location.Name}, {Location.Country} (last update: {Current.LastUpdated}):";
+        string str = $"The current weather for {Location.Name} in {Location.Country} is {Current.Condition.ConditionState}\n" +
+                     $"The temperature is {Current.Temperature}°C, but feels like: {Current.FeelsLikeTemp}°C\n\n";
 
-        str += $"\n\nTemperature: {Current.Temperature}°C (feels like: {Current.FeelsLikeTemp}°C)";
-        str += $"\nWeather Condition: {Current.Condition.ConditionState}";
-        str += $"\nWind Speed: {Current.WindSpeed}kmp ({Current.WindDirection})";
-        str += $"\nAir Pressure: {Current.Pressure} mbar";
-        str += $"\nHumidity: {Current.Humidity}%";
-        str += $"\nCloud Cover: {Current.Cloud}%";
-        str += $"\n\n{ShowWeatherAlerts()}";
+        str += $"{ShowWeatherAlerts()}";
+        str += $"Current Wind speed is {Current.WindSpeed} kmp {Current.WindDirection}\n";
+        str += $"Current Air Pressure is {Current.Pressure} mbar\n";
+        str += $"Current Humidity is {Current.Humidity}%\n";
+        str += $"Current Cloud Cover is {Current.Cloud}%\n";
+        str += $"Last update: {Current.LastUpdated}\n";
 
         return str;
     }
 
     private string? ShowWeatherAlerts() {
-        if (Settings.DontShowAlerts) {
+        if (Settings.DontShowAlerts || Alerts.WeatherAlerts.Count == 0) {
             return null;
         }
-        
-        if (Alerts.WeatherAlerts.Count == 0) {
-            return "Weather alerts:\n<none>";
-        }
 
-        string str = "Weather alerts:\n";
+        string str = "";
         
         foreach (var alert in Alerts.WeatherAlerts) {
-            str += $"{alert.AlertEvent} issued by {alert.AlertHeadline}:\n{alert.AlertDescription}\n\n";
+            str += $"{alert.AlertHeadline}:\n{alert.AlertDescription}\n\n";
         }
 
         return str;

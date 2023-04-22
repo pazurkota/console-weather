@@ -33,7 +33,8 @@ public class Program {
     }
 
     private static void OnHandle(string str, bool showAlerts) {
-        // Settings
+        str ??= "auto:ip";
+        
         CityName = str;
         DontShowAlerts = showAlerts;
         
