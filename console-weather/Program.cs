@@ -35,7 +35,7 @@ public class Program {
     private static void OnHandle(string str, bool showAlerts) {
         // Settings
         CityName = str;
-        ShowWeatherAlerts = showAlerts;
+        DontShowAlerts = showAlerts;
         
         // Parse and show data
         ApiData data = new ApiData();

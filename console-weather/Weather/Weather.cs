@@ -21,7 +21,7 @@ public class Weather {
     }
 
     private string? ShowWeatherAlerts() {
-        if (Settings.ShowWeatherAlerts) {
+        if (Settings.DontShowAlerts) {
             return null;
         }
         
