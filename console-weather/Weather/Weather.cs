@@ -5,32 +5,19 @@ public class Weather {
     public Location Location;
     public Current Current;
     public Alerts Alerts;
+    public Forecast Forecast;
 
     public override string ToString() {
-        string str = $"Weather for {Location.Name}, {Location.Country} (last update: {Current.LastUpdated}):";
+        string str = $"The current weather for {Location.Name} in {Location.Country} is {Current.Condition.ConditionState}\n" +
+                     $"The temperature is {Current.Temperature}°C, but feels like: {Current.FeelsLikeTemp}°C\n\n";
 
-        str += $"\n\nTemperature: {Current.Temperature}°C (feels like: {Current.FeelsLikeTemp}°C)";
-        str += $"\nWeather Condition: {Current.Condition.ConditionState}";
-        str += $"\nWind Speed: {Current.WindSpeed}kmp ({Current.WindDirection})";
-        str += $"\nAir Pressure: {Current.Pressure} mbar";
-        str += $"\nHumidity: {Current.Humidity}%";
-        str += $"\nCloud Cover: {Current.Cloud}%";
-        str += $"\n\nWeather Alerts:\n{ShowWeatherAlerts()}";
-
-        return str;
-    }
-
-    private string ShowWeatherAlerts() {
-        // Return "<none>" if no alerts issued
-        if (Alerts.WeatherAlerts.Count == 0) {
-            return "<none>";
-        }
-
-        string str = "";
-        
-        foreach (var alert in Alerts.WeatherAlerts) {
-            str += $"{alert.AlertEvent} issued by {alert.AlertHeadline}:\n{alert.AlertDescription}\n\n";
-        }
+        str += $"{Alerts}";
+        str += $"Current Wind speed is {Current.WindSpeed} kmp {Current.WindDirection}\n";
+        str += $"Current Air Pressure is {Current.Pressure} mbar\n";
+        str += $"Current Humidity is {Current.Humidity}%\n";
+        str += $"Current Cloud Cover is {Current.Cloud}%\n";
+        str += $"Last update: {Current.LastUpdated}";
+        str += $"{Forecast}";
 
         return str;
     }

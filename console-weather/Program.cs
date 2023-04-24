@@ -1,8 +1,8 @@
 ﻿using System.CommandLine;
 using System.CommandLine.Builder;
 using System.CommandLine.Parsing;
-using console_weather;
 using console_weather.API;
+using static console_weather.Settings;
 
 namespace console_weather;
 
@@ -13,10 +13,24 @@ public class Program {
             "Get city name"
         );
 
+        var alertsOption = new Option<bool>(
+            "--no-alerts",
+            () => false,
+            "Hide weather alerts"
+        );
+
+        var forecastOption = new Option<bool>(
+            new []{"--forecast", "-f"},
+            () => false,
+            "Show weather forecast"
+        );
+
         var rootCommand = new RootCommand() {
-            cityOption
+            cityOption,
+            alertsOption,
+            forecastOption
         };
-        rootCommand.SetHandler(OnHandle, cityOption);
+        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption);
 
         var commandLineBuilder = new CommandLineBuilder(rootCommand)
             .UseDefaults();
@@ -25,13 +39,15 @@ public class Program {
         return await parser.InvokeAsync(args).ConfigureAwait(false);
     }
 
-    private static void OnHandle(string str) {
-        // Get city name from IP address if city name not provided
+    private static void OnHandle(string str, bool showAlerts, bool showForecast) {
         str ??= "auto:ip";
         
-        ApiData.CITYNAME = str;
-        ApiData data = new ApiData();
+        CityName = str;
+        DontShowAlerts = showAlerts;
+        ShowForecast = showForecast;
         
+        // Parse and show data
+        ApiData data = new ApiData();
         Console.WriteLine(data.ParseData());
     }
 }

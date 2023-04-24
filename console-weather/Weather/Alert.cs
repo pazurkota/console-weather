@@ -16,4 +16,18 @@ public class Alert {
 public class Alerts {
     [JsonProperty("alert")]
     public List<Alert> WeatherAlerts { get; set; }
+
+    public override string ToString() {
+        if (Settings.DontShowAlerts || WeatherAlerts.Count == 0) {
+            return null;
+        }
+
+        string str = "";
+        
+        foreach (var alert in WeatherAlerts) {
+            str += $"{alert.AlertHeadline}:\n{alert.AlertDescription}\n\n";
+        }
+
+        return str;
+    }
 }
