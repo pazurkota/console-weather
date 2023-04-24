@@ -29,7 +29,7 @@ public class Forecast {
         
         string maxTemp = ForecastsDay[1].Day.MaxTemp.ToString();
         string minTemp = ForecastsDay[1].Day.MinTemp.ToString();
-        string avgTemp = ForecastsDay[1].Day.MinTemp.ToString();
+        string avgTemp = ForecastsDay[1].Day.AvgTemp.ToString();
 
         string maxWind = ForecastsDay[1].Day.MaxTemp.ToString();
 
