@@ -9,6 +9,7 @@ Console Weather project is a simple application project to check weather in cons
 - Show current Wind Speed and Direction
 - Show Air Pressure, Humidity and Cloud Cover
 - Show Weather Alerts (if exists)
+- Show Weather Forecast (for a next day)
 
 
 
@@ -16,8 +17,14 @@ Console Weather project is a simple application project to check weather in cons
 
 If you installed [.NET 7.0 or newer](https://dotnet.microsoft.com/en-us/download), just simply paste this command into console:
 ```bash
-dotnet tool install --global console-weather --version 1.1.0
+dotnet tool install --global console-weather --version 1.2.0
 ```
+
+If you want to update, just type:
+```bash
+dotnet tool update --global console-weather
+```
+
 If you running app first time, it will ask you for the [Weather API](https://www.weatherapi.com/):
 ``` 
 Error: API returned status code Forbidden
@@ -39,31 +46,47 @@ To get weather info from a specified city, type:
 weather -c "City Name"
 ```
 
+To get weather information without alerts, type:
+```bash
+weather --no-alerts
+```
+
+To get forecast for the next day, type:
+```bash
+weather -f
+```
+
+Full command list:
+```bash
+  -c, --city <city>  Get city name
+  --no-alerts        Hide weather alerts [default: False]
+  -f, --forecast     Show weather forecast [default: False]
+  --version          Show version information
+  -?, -h, --help     Show help and usage information
+```
+
 
 ## Demo
 
 Example input:
-```bash
-weather -c "London"
+```
+weather -c "Kansas City" --no-alerts
 ```
 
 Example output:
 ```
-Weather for London, United Kingdom (last update: 2023-04-15 16:00):
+The current weather for Kansas City in United States of America is Sunny
+The temperature is 16,1°C, but feels like: 16,1°C
 
-Teperature: 14,0°C (feels like: 13,7°C)
-Weather Condition: Partly cloudy
-Wind Speed: 13,0kmp (WNW)
-Air Pressure: 1021,0 mbar
-Humidity: 59%
-Cloud Cover: 25%
-
-Weather Alerts:
-<none>
+Current Wind speed is 16,9 kmp SSW
+Current Air Pressure is 1020,0 mbar
+Current Humidity is 33%
+Current Cloud Cover is 0%
+Last update: 2023-04-24 12:30
 ```
 ## Acknowledgements
 
- - [NuGet Package page](https://www.nuget.org/packages/console-weather/)
+- [NuGet Page](https://www.nuget.org/packages/console-weather/)
 
 
 ## License and support
@@ -75,3 +98,7 @@ For any project-related cases, please contact me on Discord: pazurkota#1001
 ## Lessons Learned
 
 This project basically was created to learn how to work with the API (in this case, weather API) and creating CLI apps using C#
+
+
+
+
