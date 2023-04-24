@@ -17,7 +17,7 @@ Console Weather project is a simple application project to check weather in cons
 
 If you installed [.NET 7.0 or newer](https://dotnet.microsoft.com/en-us/download), just simply paste this command into console:
 ```bash
-dotnet tool install --global console-weather --version 1.2.0
+dotnet tool install --global console-weather --version 1.2.1
 ```
 
 If you want to update, just type:
