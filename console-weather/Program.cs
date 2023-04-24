@@ -6,7 +6,7 @@ using static console_weather.Settings;
 
 namespace console_weather;
 
-public class Program {
+public static class Program {
     public static async Task<int> Main(string[] args) {
         var cityOption = new Option<string>(
             new [] {"-c", "--city"},
