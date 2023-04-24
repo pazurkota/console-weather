@@ -5,3 +5,5 @@ riderModule.iml
 /_ReSharper.Caches/
 .idea/.idea.console-weather/.idea/
 console-weather/config.json
+
+console-weather/nupkg/
