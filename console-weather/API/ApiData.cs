@@ -30,7 +30,7 @@ public class ApiData {
             };
             
             var client = new RestClient(options);
-            var request = new RestRequest($"forecast.json?key={apiKey}&q={cityName}&aqi=no&alerts=yes");
+            var request = new RestRequest($"forecast.json?key={apiKey}&q={cityName}&aqi=no&alerts=yes&days=2");
 
             var response = client.Execute(request).Content;
 
@@ -78,7 +78,8 @@ public class ApiData {
         return new Weather.Weather {
             Current = jsonText.Current,
             Location = jsonText.Location,
-            Alerts = jsonText.Alerts
+            Alerts = jsonText.Alerts,
+            Forecast = jsonText.Forecast
         };
     }
 }
