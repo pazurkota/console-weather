@@ -16,14 +16,21 @@ public class Program {
         var alertsOption = new Option<bool>(
             "--no-alerts",
             () => false,
-            "Show weather alerts"
+            "Hide weather alerts"
+        );
+
+        var forecastOption = new Option<bool>(
+            new []{"--forecast", "-f"},
+            () => false,
+            "Show weather forecast"
         );
 
         var rootCommand = new RootCommand() {
             cityOption,
-            alertsOption
+            alertsOption,
+            forecastOption
         };
-        rootCommand.SetHandler(OnHandle, cityOption, alertsOption);
+        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption);
 
         var commandLineBuilder = new CommandLineBuilder(rootCommand)
             .UseDefaults();
@@ -32,11 +39,12 @@ public class Program {
         return await parser.InvokeAsync(args).ConfigureAwait(false);
     }
 
-    private static void OnHandle(string str, bool showAlerts) {
+    private static void OnHandle(string str, bool showAlerts, bool showForecast) {
         str ??= "auto:ip";
         
         CityName = str;
         DontShowAlerts = showAlerts;
+        ShowForecast = showForecast;
         
         // Parse and show data
         ApiData data = new ApiData();

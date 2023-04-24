@@ -16,8 +16,8 @@ public class Weather {
         str += $"Current Air Pressure is {Current.Pressure} mbar\n";
         str += $"Current Humidity is {Current.Humidity}%\n";
         str += $"Current Cloud Cover is {Current.Cloud}%\n";
-        str += $"Last update: {Current.LastUpdated}\n";
-        str += $"\n{ShowForecast()}";
+        str += $"Last update: {Current.LastUpdated}";
+        str += $"{ShowForecast()}";
 
         return str;
     }
@@ -36,7 +36,11 @@ public class Weather {
         return str;
     }
 
-    private string ShowForecast() {
+    private string? ShowForecast() {
+        if (!Settings.ShowForecast) {
+            return null;
+        }
+        
         string maxTemp = Forecast.ForecastsDay[1].Day.MaxTemp.ToString();
         string minTemp = Forecast.ForecastsDay[1].Day.MinTemp.ToString();
         string avgTemp = Forecast.ForecastsDay[1].Day.MinTemp.ToString();
@@ -46,7 +50,7 @@ public class Weather {
         string chanceOfRain = Forecast.ForecastsDay[1].Day.ChanceOfRain.ToString();
         string chanceOfSnow = Forecast.ForecastsDay[1].Day.ChanceOfSnow.ToString();
         
-        string str = $"Tomorrow it will be {Forecast.ForecastsDay[1].Day.Condition.ConditionState}"
+        string str = $"\n\nTomorrow it will be {Forecast.ForecastsDay[1].Day.Condition.ConditionState}"
             + $"\nThe temperature range will be around {minTemp}°C to {maxTemp}°C, with average of {avgTemp}°C"
             + $"\nThe maximum wind speed will be around {maxWind} kph" 
             + $"\nThe chance of rain/snow: {chanceOfRain}% / {chanceOfSnow}%";
