@@ -5,7 +5,7 @@ public class Units {
   public static string Speed { get; set; } = null!;
   public static string Lenght { get; set; } = null!;
 
-  private static void getUnits() {
+  public static void GetUnits() {
     string str = Settings.Units;
 
     switch (str) {
