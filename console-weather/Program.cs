@@ -27,7 +27,7 @@ public static class Program {
 
         var unitsOption = new Option<string>(
             new []{"--units", "-u"},
-            "Set weather units [us, si, uk]"
+            "Set weather units [si, us, eu, uk]"
         ); 
 
         var rootCommand = new RootCommand() {
