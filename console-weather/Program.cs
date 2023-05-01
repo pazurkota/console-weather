@@ -25,12 +25,18 @@ public static class Program {
             "Show weather forecast"
         );
 
+        var unitsOption = new Option<string>(
+            new []{"--units", "-u"},
+            "Set weather units [us, si, uk]"
+        ); 
+
         var rootCommand = new RootCommand() {
             cityOption,
             alertsOption,
-            forecastOption
+            forecastOption,
+            unitsOption
         };
-        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption);
+        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption, unitsOption);
 
         var commandLineBuilder = new CommandLineBuilder(rootCommand)
             .UseDefaults();
@@ -39,12 +45,13 @@ public static class Program {
         return await parser.InvokeAsync(args).ConfigureAwait(false);
     }
 
-    private static void OnHandle(string str, bool showAlerts, bool showForecast) {
-        str ??= "auto:ip";
+    private static void OnHandle(string cityName, bool showAlerts, bool showForecast, string units) {
+        cityName ??= "auto:ip";
         
-        CityName = str;
+        CityName = cityName;
         DontShowAlerts = showAlerts;
         ShowForecast = showForecast;
+        Units = units;
         
         // Parse and show data
         ApiData data = new ApiData();
