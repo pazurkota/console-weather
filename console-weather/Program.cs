@@ -2,6 +2,7 @@
 using System.CommandLine.Builder;
 using System.CommandLine.Parsing;
 using console_weather.API;
+using console_weather.Utility;
 using static console_weather.Settings;
 
 namespace console_weather;
@@ -51,10 +52,9 @@ public static class Program {
         CityName = cityName;
         DontShowAlerts = showAlerts;
         ShowForecast = showForecast;
-        Units = units;
+        Settings.Units = units;
         
         // Parse and show data
-        ApiData data = new ApiData();
-        Console.WriteLine(data.ParseData());
+        Console.WriteLine(PrintData.Print());
     }
 }
