@@ -47,12 +47,7 @@ public static class PrintData {
             .Forecast
             .ForecastsDay[0]
             .Day;
-        
-        var date = ApiData.ParseData()
-            .Forecast
-            .ForecastsDay[0]
-            .Date;
-        
+
         str += $"\n\nTomorrow it will be {forecast.Condition.ConditionState}";
         str += $"\nThe temperature range will be around {forecast.MinTemp}°C to {forecast.MaxTemp}°C, with average of {forecast.AvgTemp}°C";
         str += $"\nThe maximum wind speed will be around {forecast.MaxWindSpeed} kph";

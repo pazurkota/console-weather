@@ -3,7 +3,6 @@
 namespace console_weather.Weather; 
 
 public class ForecastDay {
-    [JsonProperty("date")] public string Date { get; set; } = null!;
     [JsonProperty("day")] public Day Day { get; set; } = null!;
 }
 
