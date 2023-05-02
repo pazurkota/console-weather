@@ -1,37 +1,44 @@
 namespace console_weather.Utility;
 
 public class Units {
-  public static string Degrees { get; set; } = null!;
-  public static string Speed { get; set; } = null!;
-  public static string Lenght { get; set; } = null!;
+    public enum UnitType { Si, Us, Uk, Eu }
+    public UnitType Unit;
 
-  public static void GetUnits() {
-    string str = Settings.Units;
-
-    switch (str) {
-      case "si":
-        Degrees = "°C";
-        Speed = "m/s";
-        Lenght = "kilometers";
-        break;
-      case "us":
-        Degrees = "°F";
-        Speed = "mph";
-        Lenght = "miles";
-        break;
-      case "uk":
-        Degrees = "°C";
-        Speed = "mph";
-        Lenght = "kilometers";
-        break;
-      case "eu":
-        Degrees = "°C";
-        Speed = "kph";
-        Lenght = "kilometers";
-        break;
-      default:
-        Console.Error.WriteLine("Error: unknown units");
-        break;
+    public Units(UnitType unitType) {
+        Unit = unitType;
     }
-  }
+
+    public string GetTempUnit() {
+        switch (Unit) {
+            case UnitType.Si:
+                return "°C";
+            case UnitType.Us:
+                return "°F";
+            case UnitType.Uk:
+                return "°C";
+            case UnitType.Eu:
+                return "°C";
+            default:
+                throw new ArgumentException("Invalid unit type");
+        }
+    }
+    
+    public string GetWindSpeedUnit() {
+        switch (Unit) {
+            case UnitType.Si:
+                return "m/s";
+            case UnitType.Us:
+                return "mph";
+            case UnitType.Uk:
+                return "mph";
+            case UnitType.Eu:
+                return "kph";
+            default:
+                throw new ArgumentException("Invalid unit type");
+        }
+    }
+    
+    public string GetPressureUnit() {
+        return "hPa";
+    }
 }
