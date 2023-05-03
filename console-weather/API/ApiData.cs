@@ -5,7 +5,7 @@ using System.Net;
 using Newtonsoft.Json;
 using RestSharp;
 using static console_weather.API.ApiKeyHandler;
-using static console_weather.Settings;
+using static console_weather.Utility.Settings;
 
 namespace console_weather.API; 
 
