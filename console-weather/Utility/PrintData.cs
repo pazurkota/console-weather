@@ -74,8 +74,8 @@ public static class PrintData {
             .Day;
 
         str += $"\n\nTomorrow it will be {forecast.Condition.ConditionState}";
-        str += $"\nThe temperature range will be around {forecast.MinTemp}°C to {forecast.MaxTemp}°C, with average of {forecast.AvgTemp}°C";
-        str += $"\nThe maximum wind speed will be around {forecast.MaxWindSpeed} kph";
+        str += $"\nThe temperature range will be around {forecast.MinTempC}°C to {forecast.MaxTempC}°C, with average of {forecast.AvgTempC}°C";
+        str += $"\nThe maximum wind speed will be around {forecast.MaxWindSpeedKph} kph";
         str += $"\nThe chance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
         
         return str;

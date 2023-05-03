@@ -7,12 +7,22 @@ public class ForecastDay {
 }
 
 public class Day {
-    [JsonProperty("avgtemp_c")] public decimal AvgTemp { get; set; }
-    [JsonProperty("maxtemp_c")] public decimal MaxTemp { get; set; }
-    [JsonProperty("mintemp_c")] public decimal MinTemp { get; set; }
-    [JsonProperty("maxwind_kph")] public decimal MaxWindSpeed { get; set; }
+    // celsius
+    [JsonProperty("avgtemp_c")] public decimal AvgTempC { get; set; }
+    [JsonProperty("maxtemp_c")] public decimal MaxTempC { get; set; }
+    [JsonProperty("mintemp_c")] public decimal MinTempC { get; set; }
+    
+    // fahrenheit
+    [JsonProperty("avgtemp_f")] public decimal AvgTempF { get; set; }
+    [JsonProperty("maxtemp_f")] public decimal MaxTempF { get; set; }
+    [JsonProperty("mintemp_f")] public decimal MinTempF { get; set; }
+    
+    [JsonProperty("maxwind_kph")] public decimal MaxWindSpeedKph { get; set; }
+    [JsonProperty("maxwind_mph")] public decimal MaxWindSpeedMph { get; set; }
+    
     [JsonProperty("daily_chance_of_rain")] public decimal ChanceOfRain { get; set; }
     [JsonProperty("daily_chance_of_snow")] public decimal ChanceOfSnow { get; set; }
+    
     [JsonProperty("condition")] public Condition Condition { get; set; } = null!;
 }
 
