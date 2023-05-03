@@ -41,4 +41,13 @@ public class Units {
     public string GetPressureUnit() {
         return "hPa";
     }
+
+    public void SetUnitType(string unitStr) {
+        if (Enum.TryParse(unitStr, true, out UnitType unitType)) {
+            Unit = unitType;
+        }
+        else {
+            throw new ArgumentException("Invalid unit type");
+        }
+    }
 }
