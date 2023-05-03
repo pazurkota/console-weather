@@ -1,9 +1,9 @@
 ﻿using System.CommandLine;
 using System.CommandLine.Builder;
 using System.CommandLine.Parsing;
-using console_weather.API;
 using console_weather.Utility;
 using static console_weather.Utility.Settings;
+using Units = console_weather.Utility.Units;
 
 namespace console_weather;
 
@@ -26,9 +26,9 @@ public static class Program {
             "Show weather forecast"
         );
 
-        var unitsOption = new Option<string>(
+        var unitsOption = new Option<Units.UnitType>(
             new []{"--units", "-u"},
-            "Set weather units [si, us, eu, uk]"
+            "Set weather units"
         ); 
 
         var rootCommand = new RootCommand() {
@@ -37,7 +37,7 @@ public static class Program {
             forecastOption,
             unitsOption
         };
-        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption);
+        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption, unitsOption);
 
         var commandLineBuilder = new CommandLineBuilder(rootCommand)
             .UseDefaults();
@@ -46,12 +46,13 @@ public static class Program {
         return await parser.InvokeAsync(args).ConfigureAwait(false);
     }
 
-    private static void OnHandle(string cityName, bool showAlerts, bool showForecast) {
+    private static void OnHandle(string cityName, bool showAlerts, bool showForecast, Units.UnitType units) {
         cityName ??= "auto:ip";
         
         CityName = cityName;
         DontShowAlerts = showAlerts;
         ShowForecast = showForecast;
+        Settings.Units = units;
 
         // Parse and show data
         Console.WriteLine(PrintData.Print());
