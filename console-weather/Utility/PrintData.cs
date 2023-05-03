@@ -10,33 +10,9 @@ public static class PrintData {
         var unitType = new Units(Settings.Units);
 
         str += $"Current weather for {data.Location.Name} in {data.Location.Country} is {data.Current.Condition.ConditionState}\n";
-        
-        // print temperature
-        if (unitType.Unit == Units.UnitType.Us) {
-            str += $"The temperature is {data.Current.TemperatureF}°F, but feels like {data.Current.FeelsLikeF}°F\n\n";
-        }
-        else {
-            str += $"The temperature is {data.Current.TemperatureC}°C, but feels like {data.Current.FeelsLikeC}°C\n\n";
-        }
-        
+        str += $"{ShowTemperature(unitType, data)}";
         str += $"{ShowAlerts()}";
-        
-        // print wind speed
-        switch (unitType.Unit) {
-            case Units.UnitType.Si:
-                str += $"Current Wind Speed is {data.Current.WindSpeedKph * 1000/3600} m/s\n";
-                break;
-            case Units.UnitType.Eu:
-                str += $"Current Wind Speed is {data.Current.WindSpeedKph} kph\n";
-                break;
-            case Units.UnitType.Us:
-                str += $"Current Wind Speed is {data.Current.WindSpeedMph} mph\n";
-                break;
-            case Units.UnitType.Uk:
-                str += $"Current Wind Speed is {data.Current.WindSpeedMph} mph\n";
-                break;
-        }
-        
+        str += $"{ShowWindSpeed(unitType, data)} {data.Current.WindDirection}\n";
         str += $"Current Air Pressure is {data.Current.PressureMb} mbar\n";
         str += $"Current Humidity is {data.Current.Humidity}%\n";
         str += $"Current Cloud Cover is {data.Current.Cloud}%\n";
@@ -46,6 +22,29 @@ public static class PrintData {
         return str;
     }
 
+    #region Print weather data
+
+    private static string ShowTemperature(Units unitType, Weather.Weather data) {
+        if (unitType.Unit == Units.UnitType.Us) {
+            return $"The temperature is {data.Current.TemperatureF}°F, but feels like {data.Current.FeelsLikeF}°F\n\n";
+        }
+        
+        return $"The temperature is {data.Current.TemperatureC}°C, but feels like {data.Current.FeelsLikeC}°C\n\n";
+    }
+
+    private static string ShowWindSpeed(Units unitType, Weather.Weather data) {
+        switch (unitType.Unit) {
+            case Units.UnitType.Si:
+                return $"Current Wind Speed is {Math.Round(data.Current.WindSpeedKph * 1000/3600, 1)} m/s";
+            case Units.UnitType.Eu:
+                return $"Current Wind Speed is {data.Current.WindSpeedKph} kph";
+            default:
+                return $"Current Wind Speed is {data.Current.WindSpeedMph} mph";
+        }
+    }
+
+    #endregion
+    
     private static string? ShowAlerts() {
         var alerts = ApiData.ParseData().Alerts;
 
