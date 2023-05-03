@@ -3,7 +3,7 @@ using System.CommandLine.Builder;
 using System.CommandLine.Parsing;
 using console_weather.API;
 using console_weather.Utility;
-using static console_weather.Settings;
+using static console_weather.Utility.Settings;
 
 namespace console_weather;
 
@@ -37,7 +37,7 @@ public static class Program {
             forecastOption,
             unitsOption
         };
-        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption, unitsOption);
+        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption);
 
         var commandLineBuilder = new CommandLineBuilder(rootCommand)
             .UseDefaults();
@@ -46,14 +46,13 @@ public static class Program {
         return await parser.InvokeAsync(args).ConfigureAwait(false);
     }
 
-    private static void OnHandle(string cityName, bool showAlerts, bool showForecast, string units) {
+    private static void OnHandle(string cityName, bool showAlerts, bool showForecast) {
         cityName ??= "auto:ip";
         
         CityName = cityName;
         DontShowAlerts = showAlerts;
         ShowForecast = showForecast;
-        Settings.Units = units;
-        
+
         // Parse and show data
         Console.WriteLine(PrintData.Print());
     }

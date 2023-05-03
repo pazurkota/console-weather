@@ -5,12 +5,38 @@ namespace console_weather.Utility;
 public static class PrintData {
     public static string Print() {
         string str = "";
+        
         var data = ApiData.ParseData();
+        var unitType = new Units(Settings.Units);
 
         str += $"Current weather for {data.Location.Name} in {data.Location.Country} is {data.Current.Condition.ConditionState}\n";
-        str += $"The temperature is {data.Current.TemperatureC}°C, but feels like {data.Current.FeelsLikeC}°C\n\n";
+        
+        // print temperature
+        if (unitType.Unit == Units.UnitType.Us) {
+            str += $"The temperature is {data.Current.TemperatureF}°F, but feels like {data.Current.FeelsLikeF}°F\n\n";
+        }
+        else {
+            str += $"The temperature is {data.Current.TemperatureC}°C, but feels like {data.Current.FeelsLikeC}°C\n\n";
+        }
+        
         str += $"{ShowAlerts()}";
-        str += $"Current Wind Speed is {data.Current.WindSpeedKph} kph\n";
+        
+        // print wind speed
+        switch (unitType.Unit) {
+            case Units.UnitType.Si:
+                str += $"Current Wind Speed is {data.Current.WindSpeedKph * 1000/3600} m/s\n";
+                break;
+            case Units.UnitType.Eu:
+                str += $"Current Wind Speed is {data.Current.WindSpeedKph} kph\n";
+                break;
+            case Units.UnitType.Us:
+                str += $"Current Wind Speed is {data.Current.WindSpeedMph} mph\n";
+                break;
+            case Units.UnitType.Uk:
+                str += $"Current Wind Speed is {data.Current.WindSpeedMph} mph\n";
+                break;
+        }
+        
         str += $"Current Air Pressure is {data.Current.PressureMb} mbar\n";
         str += $"Current Humidity is {data.Current.Humidity}%\n";
         str += $"Current Cloud Cover is {data.Current.Cloud}%\n";
