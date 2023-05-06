@@ -4,23 +4,20 @@ namespace console_weather.Utility;
 
 public static class PrintData {
 
-    private static readonly Units Units = new (Settings.Units);
+    private static readonly Units UnitType = new (Settings.Units);
     private static readonly Weather.Weather Data = ApiData.ParseData();
     
     public static string Print() {
         string str = "";
-        
-        var data = ApiData.ParseData();
-        var unitType = new Units(Settings.Units);
 
-        str += $"Current weather for {data.Location.Name} in {data.Location.Country} is {data.Current.Condition.ConditionState}\n";
-        str += $"{ShowTemperature(unitType, data)}";
+        str += $"Current weather for {Data.Location.Name} in {Data.Location.Country} is {Data.Current.Condition.ConditionState}\n";
+        str += $"{ShowTemperature(UnitType, Data)}";
         str += $"{ShowAlerts()}";
-        str += $"Current Wind Speed is {ShowWindSpeed(unitType, data)} {data.Current.WindDirection}\n";
-        str += $"Current Air Pressure is {data.Current.PressureMb} mbar\n";
-        str += $"Current Humidity is {data.Current.Humidity}%\n";
-        str += $"Current Cloud Cover is {data.Current.Cloud}%\n";
-        str += $"Last Update: {data.Current.LastUpdated}";
+        str += $"Current Wind Speed is {ShowWindSpeed(UnitType, Data)} {Data.Current.WindDirection}\n";
+        str += $"Current Air Pressure is {Data.Current.PressureMb} mbar\n";
+        str += $"Current Humidity is {Data.Current.Humidity}%\n";
+        str += $"Current Cloud Cover is {Data.Current.Cloud}%\n";
+        str += $"Last Update: {Data.Current.LastUpdated}";
         str += $"{ShowForecast()}";
         
         return str;
@@ -78,8 +75,8 @@ public static class PrintData {
             .Day;
 
         str += $"\n\nTomorrow it will be {forecast.Condition.ConditionState}";
-        str += $"{ShowForecastTemp(Units, Data)}";
-        str += $"\nThe maximum wind speed will be around {ShowForecastWindSpeed(Units, Data)}";
+        str += $"{ShowForecastTemp(UnitType, Data)}";
+        str += $"\nThe maximum wind speed will be around {ShowForecastWindSpeed(UnitType, Data)}";
         str += $"\nThe chance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
         
         return str;
