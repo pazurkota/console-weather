@@ -17,7 +17,7 @@ Console Weather project is a simple application project to check weather in cons
 
 If you installed [.NET 7.0 or newer](https://dotnet.microsoft.com/en-us/download), just simply paste this command into console:
 ```bash
-dotnet tool install --global console-weather --version 1.2.1
+dotnet tool install --global console-weather --version 1.3.0
 ```
 
 If you want to update, just type:
@@ -56,33 +56,44 @@ To get forecast for the next day, type:
 weather -f
 ```
 
+To use specific units, type:
+```bash
+weather -u Si # Example
+```
+
 Full command list:
 ```bash
-  -c, --city <city>  Get city name
-  --no-alerts        Hide weather alerts [default: False]
-  -f, --forecast     Show weather forecast [default: False]
-  --version          Show version information
-  -?, -h, --help     Show help and usage information
+  -c, --city <city>          Get city name
+  --no-alerts                Hide weather alerts [default: False]
+  -f, --forecast             Show weather forecast [default: False]
+  -u, --units <Eu|Si|Uk|Us>  Set weather units
+  --version                  Show version information
+  -?, -h, --help             Show help and usage information
 ```
 
 
 ## Demo
 
 Example input:
-```
-weather -c "Kansas City" --no-alerts
+``` 
+weather -c "Kansas City" -f -u Si
 ```
 
 Example output:
 ```
-The current weather for Kansas City in United States of America is Sunny
-The temperature is 16,1°C, but feels like: 16,1°C
+Current weather for Kansas City in United States of America is Mist
+The temperature is 17,2°C, but feels like 17,2°C
 
-Current Wind speed is 16,9 kmp SSW
-Current Air Pressure is 1020,0 mbar
-Current Humidity is 33%
-Current Cloud Cover is 0%
-Last update: 2023-04-24 12:30
+Current Wind Speed is 3,1 m/s ESE
+Current Air Pressure is 1009,0 mbar
+Current Humidity is 93%
+Current Cloud Cover is 100%
+Last Update: 2023-05-06 06:45
+
+Tomorrow it will be Partly cloudy
+The temperature range will be around 14,8°C to 32,7°C, with average of 23,1°C
+The maximum wind speed will be around 8,1 m/s
+The chance of rain/snow: 0% / 0%
 ```
 ## Acknowledgements
 
