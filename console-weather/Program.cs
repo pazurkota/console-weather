@@ -1,8 +1,9 @@
 ﻿using System.CommandLine;
 using System.CommandLine.Builder;
 using System.CommandLine.Parsing;
-using console_weather.API;
-using static console_weather.Settings;
+using console_weather.Utility;
+using static console_weather.Utility.Settings;
+using Units = console_weather.Utility.Units;
 
 namespace console_weather;
 
@@ -25,12 +26,18 @@ public static class Program {
             "Show weather forecast"
         );
 
+        var unitsOption = new Option<Units.UnitType>(
+            new []{"--units", "-u"},
+            "Set weather units"
+        ); 
+
         var rootCommand = new RootCommand() {
             cityOption,
             alertsOption,
-            forecastOption
+            forecastOption,
+            unitsOption
         };
-        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption);
+        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption, unitsOption);
 
         var commandLineBuilder = new CommandLineBuilder(rootCommand)
             .UseDefaults();
@@ -39,15 +46,15 @@ public static class Program {
         return await parser.InvokeAsync(args).ConfigureAwait(false);
     }
 
-    private static void OnHandle(string str, bool showAlerts, bool showForecast) {
-        str ??= "auto:ip";
+    private static void OnHandle(string cityName, bool showAlerts, bool showForecast, Units.UnitType units) {
+        cityName ??= "auto:ip";
         
-        CityName = str;
+        CityName = cityName;
         DontShowAlerts = showAlerts;
         ShowForecast = showForecast;
-        
+        Settings.Units = units;
+
         // Parse and show data
-        ApiData data = new ApiData();
-        Console.WriteLine(data.ParseData());
+        Console.WriteLine(PrintData.Print());
     }
 }

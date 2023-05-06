@@ -5,7 +5,7 @@ using System.Net;
 using Newtonsoft.Json;
 using RestSharp;
 using static console_weather.API.ApiKeyHandler;
-using static console_weather.Settings;
+using static console_weather.Utility.Settings;
 
 namespace console_weather.API; 
 
@@ -13,7 +13,7 @@ public class ApiData {
     private const string BASE_URL = "http://api.weatherapi.com/v1/"; // Base API URL
 
     // Get request from API
-    private string GetRequest() {
+    private static string GetRequest() {
         string? apiKey = GetApiKey();
         string cityName = CityName;
 
@@ -66,7 +66,7 @@ public class ApiData {
     }
     
     // Parse data from API
-    public Weather.Weather ParseData() {
+    public static Weather.Weather ParseData() {
         var apiData = GetRequest();
         var jsonText = JsonConvert.DeserializeObject<Weather.Weather>(apiData);
         
