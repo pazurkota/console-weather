@@ -9,8 +9,8 @@ using static console_weather.Utility.Settings;
 
 namespace console_weather.API; 
 
-public class ApiData {
-    private const string BASE_URL = "http://api.weatherapi.com/v1/"; // Base API URL
+public static class ApiData {
+    private const string BaseUrl = "http://api.weatherapi.com/v1/"; // Base API URL
 
     // Get request from API
     private static string GetRequest() {
@@ -25,7 +25,7 @@ public class ApiData {
             }
             
             // Client options
-            var options = new RestClientOptions(BASE_URL) {
+            var options = new RestClientOptions(BaseUrl) {
                 ThrowOnAnyError = true
             };
             
@@ -43,9 +43,9 @@ public class ApiData {
     }
 
     // Method to check if API key is valid or not
-    public static bool CheckApiKeyValidity(string apiKey)
+    private static bool CheckApiKeyValidity(string apiKey)
     {
-        var client = new RestClient(BASE_URL);
+        var client = new RestClient(BaseUrl);
         var request = new RestRequest($"forecast.json?key={apiKey}&q=Warsaw&aqi=no&alerts=yes");
         
         var response = client.Execute(request);
@@ -56,12 +56,6 @@ public class ApiData {
             return true;
         }
 
-        if (response.StatusCode == HttpStatusCode.Unauthorized)
-        {
-            return false;
-        }
-        
-        Console.WriteLine($"Error: API returned status code {response.StatusCode}");
         return false;
     }
     

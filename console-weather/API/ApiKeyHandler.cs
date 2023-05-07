@@ -3,10 +3,10 @@ using static console_weather.API.JsonHandler;
 
 namespace console_weather.API; 
 
-public class ApiKeyHandler {
+public static class ApiKeyHandler {
     // Get API Key from config.json
     public static string? GetApiKey() {
-        var filePath = CONFIGPATH;
+        var filePath = Configpath;
         
         if (!File.Exists(filePath)) {
             CreateConfigJsonFile();
@@ -22,7 +22,7 @@ public class ApiKeyHandler {
     
     // Set API Key 
     public static void SetApiKey() {
-        string filePath = CONFIGPATH;
+        string filePath = Configpath;
 
         Console.Write("\nYour API Key is invalid or missing." +
                       "\nGet your personal key here: https://www.weatherapi.com" +
