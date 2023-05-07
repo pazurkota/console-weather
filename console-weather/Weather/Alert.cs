@@ -5,7 +5,6 @@ namespace console_weather.Weather;
 // A single Alert Class
 public class Alert {
     [JsonProperty("headline")] public string AlertHeadline { get; set; } = null!;
-    [JsonProperty("event")] public string AlertEvent { get; set; } = null!;
     [JsonProperty("desc")] public string AlertDescription { get; set; } = null!;
 }
 

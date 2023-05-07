@@ -28,10 +28,11 @@ public static class Program {
 
         var unitsOption = new Option<Units.UnitType>(
             new []{"--units", "-u"},
+            () => Units.UnitType.Eu,
             "Set weather units"
         ); 
 
-        var rootCommand = new RootCommand() {
+        var rootCommand = new RootCommand {
             cityOption,
             alertsOption,
             forecastOption,
