@@ -4,7 +4,6 @@ using static console_weather.API.JsonHandler;
 namespace console_weather.API; 
 
 public static class ApiKeyHandler {
-    // Get API Key from config.json
     public static string? GetApiKey() {
         var filePath = Configpath;
         
@@ -20,7 +19,6 @@ public static class ApiKeyHandler {
         return key;
     }
     
-    // Set API Key 
     public static void SetApiKey() {
         string filePath = Configpath;
 

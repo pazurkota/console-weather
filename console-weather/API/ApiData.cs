@@ -10,21 +10,18 @@ using static console_weather.Utility.Settings;
 namespace console_weather.API; 
 
 public static class ApiData {
-    private const string BaseUrl = "http://api.weatherapi.com/v1/"; // Base API URL
-
-    // Get request from API
+    private const string BaseUrl = "http://api.weatherapi.com/v1/"; 
+    
     private static string GetRequest() {
         string? apiKey = GetApiKey();
         string cityName = CityName;
 
         try {
-            // Get API Key if invalid or not given
             while (!CheckApiKeyValidity(apiKey)) {
                 SetApiKey();
                 apiKey = GetApiKey();
             }
             
-            // Client options
             var options = new RestClientOptions(BaseUrl) {
                 ThrowOnAnyError = true
             };
@@ -41,8 +38,7 @@ public static class ApiData {
             throw;
         }
     }
-
-    // Method to check if API key is valid or not
+    
     private static bool CheckApiKeyValidity(string apiKey)
     {
         var client = new RestClient(BaseUrl);
@@ -59,7 +55,6 @@ public static class ApiData {
         return false;
     }
     
-    // Parse data from API
     public static Weather.Weather ParseData() {
         var apiData = GetRequest();
         var jsonText = JsonConvert.DeserializeObject<Weather.Weather>(apiData);
