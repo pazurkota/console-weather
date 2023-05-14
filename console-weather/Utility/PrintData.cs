@@ -24,11 +24,11 @@ public static class PrintData {
         return str;
     }
 
-    private static string? ShowAlerts() {
+    private static string ShowAlerts() {
         var alerts = ApiData.ParseData().Alerts;
 
         if (Settings.DontShowAlerts || alerts.WeatherAlerts.Count == 0) {
-            return null;
+            return "";
         }
 
         string str = "";
@@ -40,9 +40,9 @@ public static class PrintData {
         return str;
     }
 
-    private static string? ShowForecast() {
+    private static string ShowForecast() {
         if (!Settings.ShowForecast) {
-            return null;
+            return "";
         }
 
         string str = "";
@@ -83,14 +83,16 @@ public static class PrintData {
     }
 
     private static string ShowVisibility(Units unitType, Weather.Weather data) {
-        var visibilityKm = data.Forecast.ForecastsDay[0].Day.AvgVisibilityKm;
-        var visibilityMiles = data.Forecast.ForecastsDay[0].Day.AvgVisibilityMiles;
-        
+        var visibility = data
+            .Forecast
+            .ForecastsDay[0]
+            .Day;
+
         if (unitType.Unit == Units.UnitType.Us) {
-            return $"{visibilityMiles} miles";
+            return $"{visibility.AvgVisibilityMiles} miles";
         }
 
-        return $"{visibilityKm} kilometers";
+        return $"{visibility.AvgVisibilityKm} kilometers";
     }
 
     #endregion
