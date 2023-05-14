@@ -15,6 +15,7 @@ public static class PrintData {
         str += ShowAlerts();
         str += $"Current Wind Speed is {ShowWindSpeed(UnitType, Data)} {Data.Current.WindDirection}\n";
         str += $"Current Air Pressure is {Data.Current.PressureMb} mbar\n";
+        str += $"Current visibility is {ShowVisibility(UnitType, Data)}\n";
         str += $"Current Humidity is {Data.Current.Humidity}%\n";
         str += $"Current Cloud Cover is {Data.Current.Cloud}%\n";
         str += $"Last Update: {Data.Current.LastUpdated}";
@@ -78,6 +79,17 @@ public static class PrintData {
             default:
                 return $"{data.Current.WindSpeedMph} mph";
         }
+    }
+
+    private static string ShowVisibility(Units unitType, Weather.Weather data) {
+        var visibilityKm = data.Forecast.ForecastsDay[0].Day.AvgVisibilityKm;
+        var visibilityMiles = data.Forecast.ForecastsDay[0].Day.AvgVisibilityMiles;
+        
+        if (unitType.Unit == Units.UnitType.Us) {
+            return $"{visibilityMiles} miles";
+        }
+
+        return $"{visibilityKm} kilometers";
     }
 
     #endregion
