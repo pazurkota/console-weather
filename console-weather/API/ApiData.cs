@@ -1,7 +1,6 @@
 ﻿// API Documentation:
 // https://www.weatherapi.com/docs/
 
-using System.Net;
 using Newtonsoft.Json;
 using RestSharp;
 using static console_weather.API.ApiKeyHandler;
@@ -45,14 +44,8 @@ public static class ApiData {
         var request = new RestRequest($"forecast.json?key={apiKey}&q=Warsaw&aqi=no&alerts=yes");
         
         var response = client.Execute(request);
-
-        // Check if the response status code indicates success
-        if (response.IsSuccessful)
-        {
-            return true;
-        }
-
-        return false;
+        
+        return response.IsSuccessful;
     }
     
     public static Weather.Weather ParseData() {

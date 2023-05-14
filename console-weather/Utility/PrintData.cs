@@ -3,7 +3,6 @@
 namespace console_weather.Utility; 
 
 public static class PrintData {
-
     private static readonly Units UnitType = new (Settings.Units);
     private static readonly Weather.Weather Data = ApiData.ParseData();
     
@@ -15,7 +14,7 @@ public static class PrintData {
         str += ShowAlerts();
         str += $"Current Wind Speed is {ShowWindSpeed(UnitType, Data)} {Data.Current.WindDirection}\n";
         str += $"Current Air Pressure is {Data.Current.PressureMb} mbar\n";
-        str += $"Current visibility is {ShowVisibility(UnitType, Data)}\n";
+        str += $"Current Visibility is {ShowVisibility(UnitType, Data)}\n";
         str += $"Current Humidity is {Data.Current.Humidity}%\n";
         str += $"Current Cloud Cover is {Data.Current.Cloud}%\n";
         str += $"Last Update: {Data.Current.LastUpdated}";
