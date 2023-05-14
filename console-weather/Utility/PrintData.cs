@@ -55,6 +55,7 @@ public static class PrintData {
         str += $"\n\nTomorrow it will be {forecast.Condition.ConditionState}";
         str += $"{ShowForecastTemp(UnitType, Data)}";
         str += $"\nThe maximum wind speed will be around {ShowForecastWindSpeed(UnitType, Data)}";
+        str += $"\nThe average visibility will be around {ShowForecastVisibility(UnitType, Data)}";
         str += $"\nThe chance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
         
         return str;
@@ -99,7 +100,7 @@ public static class PrintData {
     private static string ShowForecastTemp(Units unitType, Weather.Weather data) {
         var forecast = data
             .Forecast
-            .ForecastsDay[0]
+            .ForecastsDay[1]
             .Day;
         
         if (unitType.Unit == Units.UnitType.Us) {
@@ -112,7 +113,7 @@ public static class PrintData {
     private static string ShowForecastWindSpeed(Units unitType, Weather.Weather data) {
         var forecast = data
             .Forecast
-            .ForecastsDay[0]
+            .ForecastsDay[1]
             .Day;
         
         switch (unitType.Unit) {
@@ -123,6 +124,19 @@ public static class PrintData {
             default:
                 return $"{forecast.MaxWindSpeedMph} mph";
         }
+    }
+    
+    private static string ShowForecastVisibility(Units unitType, Weather.Weather data) {
+        var forecast = data
+            .Forecast
+            .ForecastsDay[1]
+            .Day;
+        
+        if (unitType.Unit == Units.UnitType.Us) {
+            return $"{forecast.AvgVisibilityMiles} miles";
+        }
+
+        return $"{forecast.AvgVisibilityKm} kilometers";
     }
 
     #endregion
