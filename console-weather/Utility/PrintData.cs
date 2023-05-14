@@ -15,6 +15,7 @@ public static class PrintData {
         str += ShowAlerts();
         str += $"Current Wind Speed is {ShowWindSpeed(UnitType, Data)} {Data.Current.WindDirection}\n";
         str += $"Current Air Pressure is {Data.Current.PressureMb} mbar\n";
+        str += $"Current visibility is {ShowVisibility(UnitType, Data)}\n";
         str += $"Current Humidity is {Data.Current.Humidity}%\n";
         str += $"Current Cloud Cover is {Data.Current.Cloud}%\n";
         str += $"Last Update: {Data.Current.LastUpdated}";
@@ -23,11 +24,11 @@ public static class PrintData {
         return str;
     }
 
-    private static string? ShowAlerts() {
+    private static string ShowAlerts() {
         var alerts = ApiData.ParseData().Alerts;
 
         if (Settings.DontShowAlerts || alerts.WeatherAlerts.Count == 0) {
-            return null;
+            return "";
         }
 
         string str = "";
@@ -39,9 +40,9 @@ public static class PrintData {
         return str;
     }
 
-    private static string? ShowForecast() {
+    private static string ShowForecast() {
         if (!Settings.ShowForecast) {
-            return null;
+            return "";
         }
 
         string str = "";
@@ -54,6 +55,7 @@ public static class PrintData {
         str += $"\n\nTomorrow it will be {forecast.Condition.ConditionState}";
         str += $"{ShowForecastTemp(UnitType, Data)}";
         str += $"\nThe maximum wind speed will be around {ShowForecastWindSpeed(UnitType, Data)}";
+        str += $"\nThe average visibility will be around {ShowForecastVisibility(UnitType, Data)}";
         str += $"\nThe chance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
         
         return str;
@@ -80,6 +82,19 @@ public static class PrintData {
         }
     }
 
+    private static string ShowVisibility(Units unitType, Weather.Weather data) {
+        var visibility = data
+            .Forecast
+            .ForecastsDay[0]
+            .Day;
+
+        if (unitType.Unit == Units.UnitType.Us) {
+            return $"{visibility.AvgVisibilityMiles} miles";
+        }
+
+        return $"{visibility.AvgVisibilityKm} kilometers";
+    }
+
     #endregion
 
     #region Print forecast data
@@ -87,7 +102,7 @@ public static class PrintData {
     private static string ShowForecastTemp(Units unitType, Weather.Weather data) {
         var forecast = data
             .Forecast
-            .ForecastsDay[0]
+            .ForecastsDay[1]
             .Day;
         
         if (unitType.Unit == Units.UnitType.Us) {
@@ -100,7 +115,7 @@ public static class PrintData {
     private static string ShowForecastWindSpeed(Units unitType, Weather.Weather data) {
         var forecast = data
             .Forecast
-            .ForecastsDay[0]
+            .ForecastsDay[1]
             .Day;
         
         switch (unitType.Unit) {
@@ -111,6 +126,19 @@ public static class PrintData {
             default:
                 return $"{forecast.MaxWindSpeedMph} mph";
         }
+    }
+    
+    private static string ShowForecastVisibility(Units unitType, Weather.Weather data) {
+        var forecast = data
+            .Forecast
+            .ForecastsDay[1]
+            .Day;
+        
+        if (unitType.Unit == Units.UnitType.Us) {
+            return $"{forecast.AvgVisibilityMiles} miles";
+        }
+
+        return $"{forecast.AvgVisibilityKm} kilometers";
     }
 
     #endregion

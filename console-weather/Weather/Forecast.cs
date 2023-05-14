@@ -17,6 +17,10 @@ public class Day {
     [JsonProperty("maxtemp_f")] public decimal MaxTempF { get; set; }
     [JsonProperty("mintemp_f")] public decimal MinTempF { get; set; }
     
+    // visibility
+    [JsonProperty("avgvis_km")] public decimal AvgVisibilityKm { get; set; }
+    [JsonProperty("avgvis_miles")] public decimal AvgVisibilityMiles { get; set; }
+    
     [JsonProperty("maxwind_kph")] public decimal MaxWindSpeedKph { get; set; }
     [JsonProperty("maxwind_mph")] public decimal MaxWindSpeedMph { get; set; }
     
