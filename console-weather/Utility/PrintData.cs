@@ -9,18 +9,23 @@ public static class PrintData {
     public static string Print() {
         string str = "";
 
-        str += $"Current weather for {Data.Location.Name} in {Data.Location.Country} is {Data.Current.Condition.ConditionState}\n";
-        str += ShowTemperature(UnitType, Data);
-        str += ShowAlerts();
-        str += $"Current Wind Speed is {ShowWindSpeed(UnitType, Data)} {Data.Current.WindDirection}\n";
-        str += $"Current Air Pressure is {Data.Current.PressureMb} mbar\n";
-        str += $"Current Visibility is {ShowVisibility(UnitType, Data)}\n";
-        str += $"Current Humidity is {Data.Current.Humidity}%\n";
-        str += $"Current Cloud Cover is {Data.Current.Cloud}%\n";
-        str += $"Last Update: {Data.Current.LastUpdated}";
-        str += ShowForecast();
-        str += ShowAirQuality(Data);
-        
+        if (Settings.ShowAirQuality) {
+            str += $"Current Air Quality for {Data.Location.Name} in {Data.Location.Country}:\n\n";
+            str += ShowAirQuality(Data);
+        }
+        else {
+            str += $"Current weather for {Data.Location.Name} in {Data.Location.Country} is {Data.Current.Condition.ConditionState}\n";
+            str += ShowTemperature(UnitType, Data);
+            str += ShowAlerts();
+            str += $"Current Wind Speed is {ShowWindSpeed(UnitType, Data)} {Data.Current.WindDirection}\n";
+            str += $"Current Air Pressure is {Data.Current.PressureMb} mbar\n";
+            str += $"Current Visibility is {ShowVisibility(UnitType, Data)}\n";
+            str += $"Current Humidity is {Data.Current.Humidity}%\n";
+            str += $"Current Cloud Cover is {Data.Current.Cloud}%\n";
+            str += $"Last Update: {Data.Current.LastUpdated}";
+            str += ShowForecast();   
+        }
+
         return str;
     }
 
@@ -110,7 +115,6 @@ public static class PrintData {
         
         string str = "";
         
-        str += "\n\nAir Quality:\n";
         str += $"Carbon Monoxide: {Math.Round(airQuality.Co, 2)} μg/m³\n";
         str += $"Nitrogen Dioxide: {Math.Round(airQuality.No2, 2)} μg/m³\n";
         str += $"Ozone: {Math.Round(airQuality.O3, 2)} μg/m³\n";
