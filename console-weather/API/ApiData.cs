@@ -9,7 +9,7 @@ using static console_weather.Utility.Settings;
 namespace console_weather.API; 
 
 public static class ApiData {
-    private const string BaseUrl = "http://api.weatherapi.com/v1/"; 
+    private const string BaseUrl = "https://api.weatherapi.com/v1/"; 
     
     private static string GetRequest() {
         string? apiKey = GetApiKey();
@@ -30,6 +30,10 @@ public static class ApiData {
 
             var response = client.Execute(request).Content;
 
+            if (response is null) {
+                throw new Exception("The response is null");
+            }
+            
             return response;
         }
         catch (Exception e) {
@@ -38,10 +42,10 @@ public static class ApiData {
         }
     }
     
-    private static bool CheckApiKeyValidity(string apiKey)
+    private static bool CheckApiKeyValidity(string? apiKey)
     {
         var client = new RestClient(BaseUrl);
-        var request = new RestRequest($"forecast.json?key={apiKey}&q=Warsaw&aqi=no&alerts=yes");
+        var request = new RestRequest($"forecast.json?key={apiKey}&q=Warsaw&aqi=no&alerts=no");
         
         var response = client.Execute(request);
         
