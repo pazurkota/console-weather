@@ -19,6 +19,7 @@ public static class PrintData {
         str += $"Current Cloud Cover is {Data.Current.Cloud}%\n";
         str += $"Last Update: {Data.Current.LastUpdated}";
         str += ShowForecast();
+        str += ShowAirQuality(Data);
         
         return str;
     }
@@ -92,6 +93,29 @@ public static class PrintData {
         }
 
         return $"{visibility.AvgVisibilityKm} kilometers";
+    }
+
+    private static string ShowAirQuality(Weather.Weather data) {
+        if (!Settings.ShowAirQuality) {
+            return "";
+        }
+
+        var airQuality = data
+            .Current
+            .AirQuality;
+        
+        string str = "";
+        
+        str += "\n\nAir Quality:\n";
+        str += $"Carbon Monoxide: {airQuality.Co} μg/m³\n";
+        str += $"Nitrogen Dioxide: {airQuality.No2} μg/m³\n";
+        str += $"Ozone: {airQuality.O3} μg/m³\n";
+        str += $"Sulphur Dioxide: {airQuality.So2} μg/m³\n";
+        str += $"Fine Particles Matter: {airQuality.Pm25} μg/m³\n";
+        str += $"Coarse Particles Matter: {airQuality.Pm10} μg/m³\n";
+        str += $"US Epa Index: {airQuality.UsEpaIndex}";
+        
+        return str;
     }
 
     #endregion

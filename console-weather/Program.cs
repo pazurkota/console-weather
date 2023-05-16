@@ -42,7 +42,8 @@ public static class Program {
             cityOption,
             alertsOption,
             forecastOption,
-            unitsOption
+            unitsOption,
+            airQualityOption
         };
         rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption, unitsOption, airQualityOption);
 
