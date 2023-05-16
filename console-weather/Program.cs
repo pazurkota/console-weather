@@ -30,15 +30,22 @@ public static class Program {
             new []{"--units", "-u"},
             () => Units.UnitType.Eu,
             "Set weather units"
-        ); 
+        );
+
+        var airQualityOption = new Option<bool>(
+            new []{"--air-quality", "-aqi"},
+            () => false,
+            "Show air quality"
+            );
 
         var rootCommand = new RootCommand {
             cityOption,
             alertsOption,
             forecastOption,
-            unitsOption
+            unitsOption,
+            airQualityOption
         };
-        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption, unitsOption);
+        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption, unitsOption, airQualityOption);
 
         var commandLineBuilder = new CommandLineBuilder(rootCommand)
             .UseDefaults();
@@ -47,13 +54,14 @@ public static class Program {
         return await parser.InvokeAsync(args).ConfigureAwait(false);
     }
 
-    private static void OnHandle(string cityName, bool showAlerts, bool showForecast, Units.UnitType units) {
+    private static void OnHandle(string cityName, bool showAlerts, bool showForecast, Units.UnitType units, bool airQuality) {
         cityName ??= "auto:ip";
         
         CityName = cityName;
         DontShowAlerts = showAlerts;
         ShowForecast = showForecast;
         Settings.Units = units;
+        ShowAirQuality = airQuality;
 
         // Parse and show data
         Console.WriteLine(PrintData.Print());
