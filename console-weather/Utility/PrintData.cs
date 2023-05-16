@@ -95,6 +95,10 @@ public static class PrintData {
         return $"{visibility.AvgVisibilityKm} kilometers";
     }
 
+    #endregion
+
+    #region Print Air Quality data
+    
     private static string ShowAirQuality(Weather.Weather data) {
         if (!Settings.ShowAirQuality) {
             return "";
@@ -107,15 +111,39 @@ public static class PrintData {
         string str = "";
         
         str += "\n\nAir Quality:\n";
-        str += $"Carbon Monoxide: {airQuality.Co} μg/m³\n";
-        str += $"Nitrogen Dioxide: {airQuality.No2} μg/m³\n";
-        str += $"Ozone: {airQuality.O3} μg/m³\n";
-        str += $"Sulphur Dioxide: {airQuality.So2} μg/m³\n";
-        str += $"Fine Particles Matter: {airQuality.Pm25} μg/m³\n";
-        str += $"Coarse Particles Matter: {airQuality.Pm10} μg/m³\n";
-        str += $"US Epa Index: {airQuality.UsEpaIndex}";
+        str += $"Carbon Monoxide: {Math.Round(airQuality.Co, 2)} μg/m³\n";
+        str += $"Nitrogen Dioxide: {Math.Round(airQuality.No2, 2)} μg/m³\n";
+        str += $"Ozone: {Math.Round(airQuality.O3, 2)} μg/m³\n";
+        str += $"Sulphur Dioxide: {Math.Round(airQuality.So2, 2)} μg/m³\n";
+        str += $"Fine Particles Matter: {Math.Round(airQuality.Pm25, 2)} μg/m³\n";
+        str += $"Coarse Particles Matter: {Math.Round(airQuality.Pm10, 2)} μg/m³\n";
+        str += $"US Epa Index: {airQuality.UsEpaIndex} ({PrintEpaStandards()})";
         
         return str;
+    }
+
+    private static string PrintEpaStandards() {
+        var index = Data
+            .Current
+            .AirQuality
+            .UsEpaIndex;
+
+        switch (index) {
+            case 1:
+                return "Good";
+            case 2:
+                return "Moderate";
+            case 3:
+                return "Unhealthy for Sensitive Groups";
+            case 4:
+                return "Unhealthy";
+            case 5:
+                return "Very Unhealthy";
+            case 6:
+                return "Hazardous";
+            default:
+                return "Unknown";
+        }
     }
 
     #endregion
