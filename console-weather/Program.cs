@@ -33,7 +33,7 @@ public static class Program {
         );
 
         var airQualityOption = new Option<bool>(
-            new []{"--air-quality", "-aqi"},
+            new []{"--air-quality", "-a"},
             () => false,
             "Show air quality"
             );
