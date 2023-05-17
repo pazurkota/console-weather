@@ -2,16 +2,16 @@
 
 namespace console_weather.API; 
 
-public class JsonHandler {
-    private static string DIRPATH = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "weather_data");
-    public static string CONFIGPATH = Path.Combine(DIRPATH, "config.json");
+public static class JsonHandler {
+    private static readonly string Dirpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "weather_data");
+    public static readonly string Configpath = Path.Combine(Dirpath, "config.json");
     
     public static void CreateConfigJsonFile() {
-        if (!Directory.Exists(DIRPATH)) {
-            Directory.CreateDirectory(DIRPATH);
+        if (!Directory.Exists(Dirpath)) {
+            Directory.CreateDirectory(Dirpath);
         }
         
-        var configFilePath = CONFIGPATH;
+        var configFilePath = Configpath;
         
         var config = new { };
         var configJson = JsonConvert.SerializeObject(config, Formatting.Indented);
