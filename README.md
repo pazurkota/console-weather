@@ -10,6 +10,7 @@ Console Weather project is a simple application project to check weather in cons
 - Show Air Pressure, Humidity and Cloud Cover
 - Show Weather Alerts (if exists)
 - Show Weather Forecast (for a next day)
+- Checking Air Quality
 
 
 
