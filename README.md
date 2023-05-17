@@ -17,7 +17,7 @@ Console Weather project is a simple application project to check weather in cons
 
 If you installed [.NET 7.0 or newer](https://dotnet.microsoft.com/en-us/download), just simply paste this command into console:
 ```bash
-dotnet tool install --global console-weather --version 1.3.0
+dotnet tool install --global console-weather --version 1.4.0
 ```
 
 If you want to update, just type:
@@ -58,22 +58,28 @@ weather -f
 
 To use specific units, type:
 ```bash
-weather -u Si # Example
+weather -u
+```
+
+To get air quality data, type:
+```bash
+weather -a
 ```
 
 Full command list:
 ```bash
-  -c, --city <city>          Get city name
+  -c, --city <city>          Get city name [optional]
   --no-alerts                Hide weather alerts [default: False]
   -f, --forecast             Show weather forecast [default: False]
-  -u, --units <Eu|Si|Uk|Us>  Set weather units
+  -u, --units <Eu|Si|Uk|Us>  Set weather units [default: Eu]
+  -a, --air-quality          Show air quality [default: False]
   --version                  Show version information
   -?, -h, --help             Show help and usage information
 ```
 
-
 ## Demo
 
+### Weather:
 Example input:
 ``` 
 weather -c "Kansas City" -f -u Si
@@ -95,6 +101,26 @@ The temperature range will be around 14,8°C to 32,7°C, with average of 23,1°C
 The maximum wind speed will be around 8,1 m/s
 The chance of rain/snow: 0% / 0%
 ```
+
+### Air Quality:
+Example input:
+```
+weather -c "Kansas City" -a
+```
+
+Example output:
+```
+Current Air Quality for Kansas City in United States of America:
+
+Carbon Monoxide: 240,30 ug/m3
+Nitrogen Dioxide: 6,40 ug/m3
+Ozone: 34,0 ug/m3
+Sulphur Dioxide: 0,30 ug/m3
+Fine Particles Matter: 5,80 ug/m3
+Coarse Particles Matter: 6,90 ug/m3
+US Epa Index: 1 (Good)
+```
+
 ## Acknowledgements
 
 - [NuGet Page](https://www.nuget.org/packages/console-weather/)
@@ -109,7 +135,3 @@ For any project-related cases, please contact me on Discord: pazurkota#1001
 ## Lessons Learned
 
 This project basically was created to learn how to work with the API (in this case, weather API) and creating CLI apps using C#
-
-
-
-
