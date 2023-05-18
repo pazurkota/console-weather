@@ -121,17 +121,12 @@ public static class PrintData {
         str += $"Sulphur Dioxide: {Math.Round(airQuality.So2, 2)} μg/m³\n";
         str += $"Fine Particles Matter: {Math.Round(airQuality.Pm25, 2)} μg/m³\n";
         str += $"Coarse Particles Matter: {Math.Round(airQuality.Pm10, 2)} μg/m³\n";
-        str += $"US Epa Index: {airQuality.UsEpaIndex} ({PrintEpaStandards()})";
+        str += $"US Epa Index: {airQuality.UsEpaIndex} ({PrintEpaStandards(airQuality.UsEpaIndex)})";
         
         return str;
     }
 
-    private static string PrintEpaStandards() {
-        var index = Data
-            .Current
-            .AirQuality
-            .UsEpaIndex;
-
+    private static string PrintEpaStandards(int index) {
         switch (index) {
             case 1:
                 return "Good";
