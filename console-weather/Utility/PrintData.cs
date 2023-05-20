@@ -15,6 +15,7 @@ public static class PrintData {
             str += $"Current Wind Speed: {ShowWindSpeed()} ({Data.Current.WindDirection})\n";
             str += $"Current Air Pressure: {Data.Current.PressureMb} mbar\n";
             str += $"Current Visibility: {ShowVisibility()}\n";
+            str += $"Current Precipitation: {ShowPrecipitation()}\n";
             str += $"Current Humidity: {Data.Current.Humidity}%\n";
             str += $"Current Cloud Cover: {Data.Current.Cloud}%";
             str += ShowAlerts();
@@ -42,16 +43,14 @@ public static class PrintData {
 
         string str = "";
         
-        var forecast = Data
-            .Forecast
-            .ForecastsDay[1]
-            .Day;
+        var forecast = Data.Forecast.ForecastsDay[1].Day;
 
         str += "\n\nFORECAST:";
         str += $"\nTomorrow it will be {forecast.Condition.ConditionState}";
         str += $"{ShowForecastTemp()}";
         str += $"\nMaximum Wind Speed: {ShowForecastWindSpeed()}";
         str += $"\nAverage Visibility: {ShowForecastVisibility()}";
+        str += $"\nMaximum Precipitation: {ShowForecastPrecipitation()}";
         str += $"\nChance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
         
         return str;
@@ -79,16 +78,23 @@ public static class PrintData {
     }
 
     private static string ShowVisibility() {
-        var visibility = Data
-            .Forecast
-            .ForecastsDay[0]
-            .Day;
+        var visibility = Data.Forecast.ForecastsDay[0].Day;
 
         if (UnitType.Unit == Units.UnitType.Us) {
             return $"{visibility.AvgVisibilityMiles} miles";
         }
 
         return $"{visibility.AvgVisibilityKm} kilometers";
+    }
+    
+    private static string ShowPrecipitation() {
+        var precipitation = Data.Current;
+
+        if (UnitType.Unit == Units.UnitType.Us) {
+            return $"{precipitation.PrecipitationIn} in";
+        }
+
+        return $"{precipitation.PrecipitationMm} mm";
     }
 
     #endregion
@@ -100,9 +106,7 @@ public static class PrintData {
             return "";
         }
 
-        var airQuality = Data
-            .Current
-            .AirQuality;
+        var airQuality = Data.Current.AirQuality;
         
         string str = "";
         
@@ -142,10 +146,7 @@ public static class PrintData {
     #region Print forecast data
 
     private static string ShowForecastTemp() {
-        var forecast = Data
-            .Forecast
-            .ForecastsDay[1]
-            .Day;
+        var forecast = Data.Forecast.ForecastsDay[1].Day;
         
         if (UnitType.Unit == Units.UnitType.Us) {
             return $"\nTemperature Range: {forecast.MinTempF}°F - {forecast.MaxTempF}°F (average: {forecast.AvgTempF})°F";
@@ -155,10 +156,7 @@ public static class PrintData {
     }
 
     private static string ShowForecastWindSpeed() {
-        var forecast = Data
-            .Forecast
-            .ForecastsDay[1]
-            .Day;
+        var forecast = Data.Forecast.ForecastsDay[1].Day;
         
         switch (UnitType.Unit) {
             case Units.UnitType.Si:
@@ -171,16 +169,23 @@ public static class PrintData {
     }
     
     private static string ShowForecastVisibility() {
-        var forecast = Data
-            .Forecast
-            .ForecastsDay[1]
-            .Day;
+        var forecast = Data.Forecast.ForecastsDay[1].Day;
         
         if (UnitType.Unit == Units.UnitType.Us) {
             return $"{forecast.AvgVisibilityMiles} miles";
         }
 
         return $"{forecast.AvgVisibilityKm} kilometers";
+    }
+    
+    private static string ShowForecastPrecipitation() {
+        var forecast = Data.Forecast.ForecastsDay[1].Day;
+
+        if (UnitType.Unit == Units.UnitType.Us) {
+            return $"{forecast.PrecipitationIn} in";
+        }
+
+        return $"{forecast.PrecipitationMm} mm";
     }
 
     #endregion

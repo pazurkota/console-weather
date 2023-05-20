@@ -25,6 +25,9 @@ public class Current {
     [JsonProperty("pressure_mb")] public decimal PressureMb { get; set; }
     [JsonProperty("pressure_in")] public decimal PressureIn { get; set; }
     
+    [JsonProperty("precip_mm")] public decimal PrecipitationMm { get; set; }
+    [JsonProperty("precip_in")] public decimal PrecipitationIn { get; set; }
+    
     [JsonProperty("humidity")] public int Humidity { get; set; }
     [JsonProperty("cloud")] public int Cloud { get; set; }
 }
