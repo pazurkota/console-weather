@@ -8,18 +8,19 @@ public static class PrintData {
     
     public static string Print() {
         string str = "";
-        
+            
+            str += "CURRENT WEATHER:\n";
             str += $"Current weather for {Data.Location.Name} in {Data.Location.Country} is {Data.Current.Condition.ConditionState}\n";
             str += ShowTemperature(UnitType, Data);
+            str += $"Current Wind Speed: {ShowWindSpeed(UnitType, Data)} ({Data.Current.WindDirection})\n";
+            str += $"Current Air Pressure: {Data.Current.PressureMb} mbar\n";
+            str += $"Current Visibility: {ShowVisibility(UnitType, Data)}\n";
+            str += $"Current Humidity: {Data.Current.Humidity}%\n";
+            str += $"Current Cloud Cover: {Data.Current.Cloud}%";
             str += ShowAlerts();
-            str += $"Current Wind Speed is {ShowWindSpeed(UnitType, Data)} {Data.Current.WindDirection}\n";
-            str += $"Current Air Pressure is {Data.Current.PressureMb} mbar\n";
-            str += $"Current Visibility is {ShowVisibility(UnitType, Data)}\n";
-            str += $"Current Humidity is {Data.Current.Humidity}%\n";
-            str += $"Current Cloud Cover is {Data.Current.Cloud}%\n";
-            str += $"Last Update: {Data.Current.LastUpdated}";
             str += ShowForecast();
             str += ShowAirQuality();
+            str += $"\n\nLast Update: {Data.Current.LastUpdated}";
 
         return str;
     }
@@ -31,7 +32,7 @@ public static class PrintData {
             return "";
         }
 
-        return alerts.WeatherAlerts.Aggregate("", (current, alert) => current + $"{alert.AlertHeadline}:\n{alert.AlertDescription}\n\n");
+        return alerts.WeatherAlerts.Aggregate("\n\nALERTS:\n", (current, alert) => current + $"{alert.AlertHeadline}:\n{alert.AlertDescription}\n\n");
     }
 
     private static string ShowForecast() {
@@ -46,11 +47,12 @@ public static class PrintData {
             .ForecastsDay[1]
             .Day;
 
-        str += $"\n\nTomorrow it will be {forecast.Condition.ConditionState}";
+        str += "\n\nFORECAST:";
+        str += $"\nTomorrow it will be {forecast.Condition.ConditionState}";
         str += $"{ShowForecastTemp()}";
-        str += $"\nThe maximum wind speed will be around {ShowForecastWindSpeed()}";
-        str += $"\nThe average visibility will be around {ShowForecastVisibility()}";
-        str += $"\nThe chance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
+        str += $"\nMaximum Wind Speed: {ShowForecastWindSpeed()}";
+        str += $"\nAverage Visibility: {ShowForecastVisibility()}";
+        str += $"\nChance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
         
         return str;
     }
@@ -104,7 +106,7 @@ public static class PrintData {
         
         string str = "";
         
-        str += "\n\nCurrent Air Quality:\n";
+        str += "\n\nAIR QUALITY:\n";
         str += $"Carbon Monoxide: {Math.Round(airQuality.Co, 2)} μg/m³\n";
         str += $"Nitrogen Dioxide: {Math.Round(airQuality.No2, 2)} μg/m³\n";
         str += $"Ozone: {Math.Round(airQuality.O3, 2)} μg/m³\n";
@@ -146,10 +148,10 @@ public static class PrintData {
             .Day;
         
         if (UnitType.Unit == Units.UnitType.Us) {
-            return $"\nThe temperature range will be around {forecast.MinTempF}°F to {forecast.MaxTempF}°F, with average of {forecast.AvgTempF}°F";
+            return $"\nTemperature Range: {forecast.MinTempF}°F - {forecast.MaxTempF}°F (average: {forecast.AvgTempF})°F";
         }
         
-        return $"\nThe temperature range will be around {forecast.MinTempC}°C to {forecast.MaxTempC}°C, with average of {forecast.AvgTempC}°C";
+        return $"\nTemperature Range: {forecast.MinTempC}°C - {forecast.MaxTempC}°C (average: {forecast.AvgTempC})°C";
     }
 
     private static string ShowForecastWindSpeed() {
