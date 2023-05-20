@@ -11,10 +11,10 @@ public static class PrintData {
             
             str += "CURRENT WEATHER:\n";
             str += $"Current weather for {Data.Location.Name} in {Data.Location.Country} is {Data.Current.Condition.ConditionState}\n";
-            str += ShowTemperature(UnitType, Data);
-            str += $"Current Wind Speed: {ShowWindSpeed(UnitType, Data)} ({Data.Current.WindDirection})\n";
+            str += ShowTemperature();
+            str += $"Current Wind Speed: {ShowWindSpeed()} ({Data.Current.WindDirection})\n";
             str += $"Current Air Pressure: {Data.Current.PressureMb} mbar\n";
-            str += $"Current Visibility: {ShowVisibility(UnitType, Data)}\n";
+            str += $"Current Visibility: {ShowVisibility()}\n";
             str += $"Current Humidity: {Data.Current.Humidity}%\n";
             str += $"Current Cloud Cover: {Data.Current.Cloud}%";
             str += ShowAlerts();
@@ -59,32 +59,32 @@ public static class PrintData {
     
     #region Print weather data
 
-    private static string ShowTemperature(Units unitType, Weather.Weather data) {
-        if (unitType.Unit == Units.UnitType.Us) {
-            return $"The temperature is {data.Current.TemperatureF}°F, but feels like {data.Current.FeelsLikeF}°F\n\n";
+    private static string ShowTemperature() {
+        if (UnitType.Unit == Units.UnitType.Us) {
+            return $"The temperature is {Data.Current.TemperatureF}°F, but feels like {Data.Current.FeelsLikeF}°F\n\n";
         }
         
-        return $"The temperature is {data.Current.TemperatureC}°C, but feels like {data.Current.FeelsLikeC}°C\n\n";
+        return $"The temperature is {Data.Current.TemperatureC}°C, but feels like {Data.Current.FeelsLikeC}°C\n\n";
     }
 
-    private static string ShowWindSpeed(Units unitType, Weather.Weather data) {
-        switch (unitType.Unit) {
+    private static string ShowWindSpeed() {
+        switch (UnitType.Unit) {
             case Units.UnitType.Si:
-                return $"{Math.Round(data.Current.WindSpeedKph * 1000/3600, 1)} m/s";
+                return $"{Math.Round(Data.Current.WindSpeedKph * 1000/3600, 1)} m/s";
             case Units.UnitType.Eu:
-                return $"{data.Current.WindSpeedKph} kph";
+                return $"{Data.Current.WindSpeedKph} kph";
             default:
-                return $"{data.Current.WindSpeedMph} mph";
+                return $"{Data.Current.WindSpeedMph} mph";
         }
     }
 
-    private static string ShowVisibility(Units unitType, Weather.Weather data) {
-        var visibility = data
+    private static string ShowVisibility() {
+        var visibility = Data
             .Forecast
             .ForecastsDay[0]
             .Day;
 
-        if (unitType.Unit == Units.UnitType.Us) {
+        if (UnitType.Unit == Units.UnitType.Us) {
             return $"{visibility.AvgVisibilityMiles} miles";
         }
 
