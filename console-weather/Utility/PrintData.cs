@@ -12,14 +12,14 @@ public static class PrintData {
             str += $"Current weather for {Data.Location.Name} in {Data.Location.Country} is {Data.Current.Condition.ConditionState}\n";
             str += ShowTemperature(UnitType, Data);
             str += ShowAlerts();
-            str += $"Current Wind Speed is {ShowWindSpeed(UnitType, Data)} {Data.Current.WindDirection}\n";
-            str += $"Current Air Pressure is {Data.Current.PressureMb} mbar\n";
-            str += $"Current Visibility is {ShowVisibility(UnitType, Data)}\n";
-            str += $"Current Humidity is {Data.Current.Humidity}%\n";
-            str += $"Current Cloud Cover is {Data.Current.Cloud}%\n";
-            str += $"Last Update: {Data.Current.LastUpdated}";
+            str += $"Current Wind Speed: {ShowWindSpeed(UnitType, Data)} ({Data.Current.WindDirection})\n";
+            str += $"Current Air Pressure: {Data.Current.PressureMb} mbar\n";
+            str += $"Current Visibility: {ShowVisibility(UnitType, Data)}\n";
+            str += $"Current Humidity: {Data.Current.Humidity}%\n";
+            str += $"Current Cloud Cover: {Data.Current.Cloud}%";
             str += ShowForecast();
             str += ShowAirQuality();
+            str += $"\n\nLast Update: {Data.Current.LastUpdated}";
 
         return str;
     }
@@ -48,9 +48,9 @@ public static class PrintData {
 
         str += $"\n\nTomorrow it will be {forecast.Condition.ConditionState}";
         str += $"{ShowForecastTemp()}";
-        str += $"\nThe maximum wind speed will be around {ShowForecastWindSpeed()}";
-        str += $"\nThe average visibility will be around {ShowForecastVisibility()}";
-        str += $"\nThe chance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
+        str += $"\nMaximum Wind Speed: {ShowForecastWindSpeed()}";
+        str += $"\nAverage Visibility: {ShowForecastVisibility()}";
+        str += $"\nChance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
         
         return str;
     }
@@ -146,10 +146,10 @@ public static class PrintData {
             .Day;
         
         if (UnitType.Unit == Units.UnitType.Us) {
-            return $"\nThe temperature range will be around {forecast.MinTempF}°F to {forecast.MaxTempF}°F, with average of {forecast.AvgTempF}°F";
+            return $"\nTemperature Range: {forecast.MinTempF}°F - {forecast.MaxTempF}°F (average: {forecast.AvgTempF})°F";
         }
         
-        return $"\nThe temperature range will be around {forecast.MinTempC}°C to {forecast.MaxTempC}°C, with average of {forecast.AvgTempC}°C";
+        return $"\nTemperature Range: {forecast.MinTempC}°C - {forecast.MaxTempC}°C (average: {forecast.AvgTempC})°C";
     }
 
     private static string ShowForecastWindSpeed() {
