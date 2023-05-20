@@ -55,9 +55,7 @@ public static class Program {
     }
 
     private static void OnHandle(string cityName, bool showAlerts, bool showForecast, Units.UnitType units, bool airQuality) {
-        cityName ??= "auto:ip";
-        
-        CityName = cityName;
+        CityName = cityName ?? "auto:ip";
         DontShowAlerts = showAlerts;
         ShowForecast = showForecast;
         Settings.Units = units;

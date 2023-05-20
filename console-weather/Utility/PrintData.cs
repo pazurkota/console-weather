@@ -8,41 +8,33 @@ public static class PrintData {
     
     public static string Print() {
         string str = "";
-
-        if (Settings.ShowAirQuality) {
-            str += $"Current Air Quality for {Data.Location.Name} in {Data.Location.Country}:\n\n";
-            str += ShowAirQuality(Data);
-        }
-        else {
+            
+            str += "CURRENT WEATHER:\n";
             str += $"Current weather for {Data.Location.Name} in {Data.Location.Country} is {Data.Current.Condition.ConditionState}\n";
-            str += ShowTemperature(UnitType, Data);
+            str += ShowTemperature();
+            str += $"Current Wind Speed: {ShowWindSpeed()} ({Data.Current.WindDirection})\n";
+            str += $"Current Air Pressure: {Data.Current.PressureMb} mbar\n";
+            str += $"Current Visibility: {ShowVisibility()}\n";
+            str += $"Current Precipitation: {ShowPrecipitation()}\n";
+            str += $"Current Humidity: {Data.Current.Humidity}%\n";
+            str += $"Current Cloud Cover: {Data.Current.Cloud}%\n";
+            str += $"Current UV Index: {Data.Current.UvIndex} ({ShowUvIndex()})";
             str += ShowAlerts();
-            str += $"Current Wind Speed is {ShowWindSpeed(UnitType, Data)} {Data.Current.WindDirection}\n";
-            str += $"Current Air Pressure is {Data.Current.PressureMb} mbar\n";
-            str += $"Current Visibility is {ShowVisibility(UnitType, Data)}\n";
-            str += $"Current Humidity is {Data.Current.Humidity}%\n";
-            str += $"Current Cloud Cover is {Data.Current.Cloud}%\n";
-            str += $"Last Update: {Data.Current.LastUpdated}";
-            str += ShowForecast();   
-        }
+            str += ShowForecast();
+            str += ShowAirQuality();
+            str += $"\n\nLast Update: {Data.Current.LastUpdated}";
 
         return str;
     }
 
     private static string ShowAlerts() {
-        var alerts = ApiData.ParseData().Alerts;
+        var alerts = Data.Alerts;
 
         if (Settings.DontShowAlerts || alerts.WeatherAlerts.Count == 0) {
             return "";
         }
 
-        string str = "";
-
-        foreach (var alert in alerts.WeatherAlerts) {
-            str += $"{alert.AlertHeadline}:\n{alert.AlertDescription}\n\n";
-        }
-        
-        return str;
+        return alerts.WeatherAlerts.Aggregate("\n\nALERTS:\n", (current, alert) => current + $"{alert.AlertHeadline}:\n{alert.AlertDescription}\n\n");
     }
 
     private static string ShowForecast() {
@@ -52,86 +44,103 @@ public static class PrintData {
 
         string str = "";
         
-        var forecast = ApiData.ParseData()
-            .Forecast
-            .ForecastsDay[0]
-            .Day;
+        var forecast = Data.Forecast.ForecastsDay[1].Day;
 
-        str += $"\n\nTomorrow it will be {forecast.Condition.ConditionState}";
-        str += $"{ShowForecastTemp(UnitType, Data)}";
-        str += $"\nThe maximum wind speed will be around {ShowForecastWindSpeed(UnitType, Data)}";
-        str += $"\nThe average visibility will be around {ShowForecastVisibility(UnitType, Data)}";
-        str += $"\nThe chance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
+        str += "\n\nFORECAST:";
+        str += $"\nTomorrow it will be {forecast.Condition.ConditionState}";
+        str += $"{ShowForecastTemp()}";
+        str += $"\nMaximum Wind Speed: {ShowForecastWindSpeed()}";
+        str += $"\nAverage Visibility: {ShowForecastVisibility()}";
+        str += $"\nMaximum Precipitation: {ShowForecastPrecipitation()}";
+        str += $"\nUV Index: {forecast.UvIndex} ({ShowForecastUvIndex()})";
+        str += $"\nChance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
         
         return str;
     }
     
     #region Print weather data
 
-    private static string ShowTemperature(Units unitType, Weather.Weather data) {
-        if (unitType.Unit == Units.UnitType.Us) {
-            return $"The temperature is {data.Current.TemperatureF}°F, but feels like {data.Current.FeelsLikeF}°F\n\n";
+    private static string ShowTemperature() {
+        if (UnitType.Unit == Units.UnitType.Us) {
+            return $"The temperature is {Data.Current.TemperatureF}°F, but feels like {Data.Current.FeelsLikeF}°F\n\n";
         }
         
-        return $"The temperature is {data.Current.TemperatureC}°C, but feels like {data.Current.FeelsLikeC}°C\n\n";
+        return $"The temperature is {Data.Current.TemperatureC}°C, but feels like {Data.Current.FeelsLikeC}°C\n\n";
     }
 
-    private static string ShowWindSpeed(Units unitType, Weather.Weather data) {
-        switch (unitType.Unit) {
+    private static string ShowWindSpeed() {
+        switch (UnitType.Unit) {
             case Units.UnitType.Si:
-                return $"{Math.Round(data.Current.WindSpeedKph * 1000/3600, 1)} m/s";
+                return $"{Math.Round(Data.Current.WindSpeedKph * 1000/3600, 1)} m/s";
             case Units.UnitType.Eu:
-                return $"{data.Current.WindSpeedKph} kph";
+                return $"{Data.Current.WindSpeedKph} kph";
             default:
-                return $"{data.Current.WindSpeedMph} mph";
+                return $"{Data.Current.WindSpeedMph} mph";
         }
     }
 
-    private static string ShowVisibility(Units unitType, Weather.Weather data) {
-        var visibility = data
-            .Forecast
-            .ForecastsDay[0]
-            .Day;
+    private static string ShowVisibility() {
+        var visibility = Data.Current;
 
-        if (unitType.Unit == Units.UnitType.Us) {
-            return $"{visibility.AvgVisibilityMiles} miles";
+        if (UnitType.Unit == Units.UnitType.Us) {
+            return $"{visibility.VisibilityMiles} miles";
         }
 
-        return $"{visibility.AvgVisibilityKm} kilometers";
+        return $"{visibility.VisibilityKm} kilometers";
+    }
+    
+    private static string ShowPrecipitation() {
+        var precipitation = Data.Current;
+
+        if (UnitType.Unit == Units.UnitType.Us) {
+            return $"{precipitation.PrecipitationIn} in";
+        }
+
+        return $"{precipitation.PrecipitationMm} mm";
+    }
+    
+    private static string ShowUvIndex() {
+        var uvIndex = Data.Current.UvIndex;
+
+        if (uvIndex == 0) {
+            return "No UV Index";
+        }
+
+        return uvIndex switch {
+            < 3 => "Low",
+            < 6 => "Moderate",
+            < 8 => "High",
+            < 11 => "Very High",
+            _ => "Extreme"
+        };
     }
 
     #endregion
 
     #region Print Air Quality data
     
-    private static string ShowAirQuality(Weather.Weather data) {
+    private static string ShowAirQuality() {
         if (!Settings.ShowAirQuality) {
             return "";
         }
 
-        var airQuality = data
-            .Current
-            .AirQuality;
+        var airQuality = Data.Current.AirQuality;
         
         string str = "";
         
+        str += "\n\nAIR QUALITY:\n";
         str += $"Carbon Monoxide: {Math.Round(airQuality.Co, 2)} μg/m³\n";
         str += $"Nitrogen Dioxide: {Math.Round(airQuality.No2, 2)} μg/m³\n";
         str += $"Ozone: {Math.Round(airQuality.O3, 2)} μg/m³\n";
         str += $"Sulphur Dioxide: {Math.Round(airQuality.So2, 2)} μg/m³\n";
         str += $"Fine Particles Matter: {Math.Round(airQuality.Pm25, 2)} μg/m³\n";
         str += $"Coarse Particles Matter: {Math.Round(airQuality.Pm10, 2)} μg/m³\n";
-        str += $"US Epa Index: {airQuality.UsEpaIndex} ({PrintEpaStandards()})";
+        str += $"US Epa Index: {airQuality.UsEpaIndex} ({PrintEpaStandards(airQuality.UsEpaIndex)})";
         
         return str;
     }
 
-    private static string PrintEpaStandards() {
-        var index = Data
-            .Current
-            .AirQuality
-            .UsEpaIndex;
-
+    private static string PrintEpaStandards(int index) {
         switch (index) {
             case 1:
                 return "Good";
@@ -154,26 +163,20 @@ public static class PrintData {
 
     #region Print forecast data
 
-    private static string ShowForecastTemp(Units unitType, Weather.Weather data) {
-        var forecast = data
-            .Forecast
-            .ForecastsDay[1]
-            .Day;
+    private static string ShowForecastTemp() {
+        var forecast = Data.Forecast.ForecastsDay[1].Day;
         
-        if (unitType.Unit == Units.UnitType.Us) {
-            return $"\nThe temperature range will be around {forecast.MinTempF}°F to {forecast.MaxTempF}°F, with average of {forecast.AvgTempF}°F";
+        if (UnitType.Unit == Units.UnitType.Us) {
+            return $"\nTemperature Range: {forecast.MinTempF}°F - {forecast.MaxTempF}°F (average: {forecast.AvgTempF})°F";
         }
         
-        return $"\nThe temperature range will be around {forecast.MinTempC}°C to {forecast.MaxTempC}°C, with average of {forecast.AvgTempC}°C";
+        return $"\nTemperature Range: {forecast.MinTempC}°C - {forecast.MaxTempC}°C (average: {forecast.AvgTempC})°C";
     }
 
-    private static string ShowForecastWindSpeed(Units unitType, Weather.Weather data) {
-        var forecast = data
-            .Forecast
-            .ForecastsDay[1]
-            .Day;
+    private static string ShowForecastWindSpeed() {
+        var forecast = Data.Forecast.ForecastsDay[1].Day;
         
-        switch (unitType.Unit) {
+        switch (UnitType.Unit) {
             case Units.UnitType.Si:
                 return $"{Math.Round(forecast.MaxWindSpeedKph * 1000/3600, 1)} m/s";
             case Units.UnitType.Eu:
@@ -183,17 +186,41 @@ public static class PrintData {
         }
     }
     
-    private static string ShowForecastVisibility(Units unitType, Weather.Weather data) {
-        var forecast = data
-            .Forecast
-            .ForecastsDay[1]
-            .Day;
+    private static string ShowForecastVisibility() {
+        var forecast = Data.Forecast.ForecastsDay[1].Day;
         
-        if (unitType.Unit == Units.UnitType.Us) {
+        if (UnitType.Unit == Units.UnitType.Us) {
             return $"{forecast.AvgVisibilityMiles} miles";
         }
 
         return $"{forecast.AvgVisibilityKm} kilometers";
+    }
+    
+    private static string ShowForecastPrecipitation() {
+        var forecast = Data.Forecast.ForecastsDay[1].Day;
+
+        if (UnitType.Unit == Units.UnitType.Us) {
+            return $"{forecast.PrecipitationIn} in";
+        }
+
+        return $"{forecast.PrecipitationMm} mm";
+    }
+    
+    private static string ShowForecastUvIndex() {
+        var forecast = Data.Forecast.ForecastsDay[1].Day;
+        var uvIndex = forecast.UvIndex;
+
+        if (uvIndex == 0) {
+            return "No UV Index";
+        }
+
+        return uvIndex switch {
+            < 3 => "Low",
+            < 6 => "Moderate",
+            < 8 => "High",
+            < 11 => "Very High",
+            _ => "Extreme"
+        };
     }
 
     #endregion

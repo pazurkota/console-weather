@@ -17,6 +17,10 @@ public class Current {
     [JsonProperty("temp_f")] public decimal TemperatureF { get; set; }
     [JsonProperty("feelslike_f")] public decimal FeelsLikeF { get; set; }
     
+    // visibility
+    [JsonProperty("vis_km")] public decimal VisibilityKm { get; set; }
+    [JsonProperty("vis_miles")] public decimal VisibilityMiles { get; set; }
+    
     [JsonProperty("wind_kph")] public decimal WindSpeedKph { get; set; }
     [JsonProperty("wind_mph")] public decimal WindSpeedMph { get; set; }
 
@@ -25,6 +29,11 @@ public class Current {
     [JsonProperty("pressure_mb")] public decimal PressureMb { get; set; }
     [JsonProperty("pressure_in")] public decimal PressureIn { get; set; }
     
+    [JsonProperty("precip_mm")] public decimal PrecipitationMm { get; set; }
+    [JsonProperty("precip_in")] public decimal PrecipitationIn { get; set; }
+    
     [JsonProperty("humidity")] public int Humidity { get; set; }
     [JsonProperty("cloud")] public int Cloud { get; set; }
+    
+    [JsonProperty("uv")] public decimal UvIndex { get; set; }
 }

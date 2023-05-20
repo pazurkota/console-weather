@@ -24,8 +24,13 @@ public class Day {
     [JsonProperty("maxwind_kph")] public decimal MaxWindSpeedKph { get; set; }
     [JsonProperty("maxwind_mph")] public decimal MaxWindSpeedMph { get; set; }
     
+    [JsonProperty("totalprecip_mm")] public decimal PrecipitationMm { get; set; }
+    [JsonProperty("totalprecip_in")] public decimal PrecipitationIn { get; set; }
+    
     [JsonProperty("daily_chance_of_rain")] public decimal ChanceOfRain { get; set; }
     [JsonProperty("daily_chance_of_snow")] public decimal ChanceOfSnow { get; set; }
+    
+    [JsonProperty("uv")] public decimal UvIndex { get; set; }
     
     [JsonProperty("condition")] public Condition Condition { get; set; } = null!;
 }
