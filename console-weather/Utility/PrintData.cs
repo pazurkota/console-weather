@@ -78,13 +78,13 @@ public static class PrintData {
     }
 
     private static string ShowVisibility() {
-        var visibility = Data.Forecast.ForecastsDay[0].Day;
+        var visibility = Data.Current;
 
         if (UnitType.Unit == Units.UnitType.Us) {
-            return $"{visibility.AvgVisibilityMiles} miles";
+            return $"{visibility.VisibilityMiles} miles";
         }
 
-        return $"{visibility.AvgVisibilityKm} kilometers";
+        return $"{visibility.VisibilityKm} kilometers";
     }
     
     private static string ShowPrecipitation() {
