@@ -52,6 +52,7 @@ public static class PrintData {
         str += $"\nMaximum Wind Speed: {ShowForecastWindSpeed()}";
         str += $"\nAverage Visibility: {ShowForecastVisibility()}";
         str += $"\nMaximum Precipitation: {ShowForecastPrecipitation()}";
+        str += $"\nUV Index: {forecast.UvIndex} ({ShowForecastUvIndex()})";
         str += $"\nChance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
         
         return str;
@@ -203,6 +204,23 @@ public static class PrintData {
         }
 
         return $"{forecast.PrecipitationMm} mm";
+    }
+    
+    private static string ShowForecastUvIndex() {
+        var forecast = Data.Forecast.ForecastsDay[1].Day;
+        var uvIndex = forecast.UvIndex;
+
+        if (uvIndex == 0) {
+            return "No UV Index";
+        }
+
+        return uvIndex switch {
+            < 3 => "Low",
+            < 6 => "Moderate",
+            < 8 => "High",
+            < 11 => "Very High",
+            _ => "Extreme"
+        };
     }
 
     #endregion
