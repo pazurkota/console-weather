@@ -50,6 +50,7 @@ public static class PrintData {
         str += $"{ShowForecastTemp()}";
         str += $"\nMaximum Wind Speed: {ShowForecastWindSpeed()}";
         str += $"\nAverage Visibility: {ShowForecastVisibility()}";
+        str += $"\nMaximum Precipitation: {ShowForecastPrecipitation()}";
         str += $"\nChance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
         
         return str;
@@ -175,6 +176,16 @@ public static class PrintData {
         }
 
         return $"{forecast.AvgVisibilityKm} kilometers";
+    }
+    
+    private static string ShowForecastPrecipitation() {
+        var forecast = Data.Forecast.ForecastsDay[1].Day;
+
+        if (UnitType.Unit == Units.UnitType.Us) {
+            return $"{forecast.PrecipitationIn} in";
+        }
+
+        return $"{forecast.PrecipitationMm} mm";
     }
 
     #endregion
