@@ -17,7 +17,8 @@ public static class PrintData {
             str += $"Current Visibility: {ShowVisibility()}\n";
             str += $"Current Precipitation: {ShowPrecipitation()}\n";
             str += $"Current Humidity: {Data.Current.Humidity}%\n";
-            str += $"Current Cloud Cover: {Data.Current.Cloud}%";
+            str += $"Current Cloud Cover: {Data.Current.Cloud}%\n";
+            str += $"Current UV Index: {Data.Current.UvIndex} ({ShowUvIndex()})";
             str += ShowAlerts();
             str += ShowForecast();
             str += ShowAirQuality();
@@ -95,6 +96,22 @@ public static class PrintData {
         }
 
         return $"{precipitation.PrecipitationMm} mm";
+    }
+    
+    private static string ShowUvIndex() {
+        var uvIndex = Data.Current.UvIndex;
+
+        if (uvIndex == 0) {
+            return "No UV Index";
+        }
+
+        return uvIndex switch {
+            < 3 => "Low",
+            < 6 => "Moderate",
+            < 8 => "High",
+            < 11 => "Very High",
+            _ => "Extreme"
+        };
     }
 
     #endregion
