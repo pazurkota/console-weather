@@ -41,15 +41,15 @@ public static class PrintData {
 
         string str = "";
         
-        var forecast = ApiData.ParseData()
+        var forecast = Data
             .Forecast
-            .ForecastsDay[0]
+            .ForecastsDay[1]
             .Day;
 
         str += $"\n\nTomorrow it will be {forecast.Condition.ConditionState}";
-        str += $"{ShowForecastTemp(UnitType, Data)}";
-        str += $"\nThe maximum wind speed will be around {ShowForecastWindSpeed(UnitType, Data)}";
-        str += $"\nThe average visibility will be around {ShowForecastVisibility(UnitType, Data)}";
+        str += $"{ShowForecastTemp()}";
+        str += $"\nThe maximum wind speed will be around {ShowForecastWindSpeed()}";
+        str += $"\nThe average visibility will be around {ShowForecastVisibility()}";
         str += $"\nThe chance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
         
         return str;
@@ -139,26 +139,26 @@ public static class PrintData {
 
     #region Print forecast data
 
-    private static string ShowForecastTemp(Units unitType, Weather.Weather data) {
-        var forecast = data
+    private static string ShowForecastTemp() {
+        var forecast = Data
             .Forecast
             .ForecastsDay[1]
             .Day;
         
-        if (unitType.Unit == Units.UnitType.Us) {
+        if (UnitType.Unit == Units.UnitType.Us) {
             return $"\nThe temperature range will be around {forecast.MinTempF}°F to {forecast.MaxTempF}°F, with average of {forecast.AvgTempF}°F";
         }
         
         return $"\nThe temperature range will be around {forecast.MinTempC}°C to {forecast.MaxTempC}°C, with average of {forecast.AvgTempC}°C";
     }
 
-    private static string ShowForecastWindSpeed(Units unitType, Weather.Weather data) {
-        var forecast = data
+    private static string ShowForecastWindSpeed() {
+        var forecast = Data
             .Forecast
             .ForecastsDay[1]
             .Day;
         
-        switch (unitType.Unit) {
+        switch (UnitType.Unit) {
             case Units.UnitType.Si:
                 return $"{Math.Round(forecast.MaxWindSpeedKph * 1000/3600, 1)} m/s";
             case Units.UnitType.Eu:
@@ -168,13 +168,13 @@ public static class PrintData {
         }
     }
     
-    private static string ShowForecastVisibility(Units unitType, Weather.Weather data) {
-        var forecast = data
+    private static string ShowForecastVisibility() {
+        var forecast = Data
             .Forecast
             .ForecastsDay[1]
             .Day;
         
-        if (unitType.Unit == Units.UnitType.Us) {
+        if (UnitType.Unit == Units.UnitType.Us) {
             return $"{forecast.AvgVisibilityMiles} miles";
         }
 
