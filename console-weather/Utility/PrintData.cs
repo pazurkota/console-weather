@@ -88,7 +88,7 @@ public static class PrintData {
     }
     
     private static string ShowPrecipitation() {
-        var precipitation = Data.Forecast.ForecastsDay[0].Day;
+        var precipitation = Data.Current;
 
         if (UnitType.Unit == Units.UnitType.Us) {
             return $"{precipitation.PrecipitationIn} in";
