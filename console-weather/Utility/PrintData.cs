@@ -17,7 +17,8 @@ public static class PrintData {
             str += $"Current Visibility: {ShowVisibility()}\n";
             str += $"Current Precipitation: {ShowPrecipitation()}\n";
             str += $"Current Humidity: {Data.Current.Humidity}%\n";
-            str += $"Current Cloud Cover: {Data.Current.Cloud}%";
+            str += $"Current Cloud Cover: {Data.Current.Cloud}%\n";
+            str += $"Current UV Index: {Data.Current.UvIndex} ({ShowUvIndex()})";
             str += ShowAlerts();
             str += ShowForecast();
             str += ShowAirQuality();
@@ -51,6 +52,7 @@ public static class PrintData {
         str += $"\nMaximum Wind Speed: {ShowForecastWindSpeed()}";
         str += $"\nAverage Visibility: {ShowForecastVisibility()}";
         str += $"\nMaximum Precipitation: {ShowForecastPrecipitation()}";
+        str += $"\nUV Index: {forecast.UvIndex} ({ShowForecastUvIndex()})";
         str += $"\nChance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
         
         return str;
@@ -78,13 +80,13 @@ public static class PrintData {
     }
 
     private static string ShowVisibility() {
-        var visibility = Data.Forecast.ForecastsDay[0].Day;
+        var visibility = Data.Current;
 
         if (UnitType.Unit == Units.UnitType.Us) {
-            return $"{visibility.AvgVisibilityMiles} miles";
+            return $"{visibility.VisibilityMiles} miles";
         }
 
-        return $"{visibility.AvgVisibilityKm} kilometers";
+        return $"{visibility.VisibilityKm} kilometers";
     }
     
     private static string ShowPrecipitation() {
@@ -95,6 +97,22 @@ public static class PrintData {
         }
 
         return $"{precipitation.PrecipitationMm} mm";
+    }
+    
+    private static string ShowUvIndex() {
+        var uvIndex = Data.Current.UvIndex;
+
+        if (uvIndex == 0) {
+            return "No UV Index";
+        }
+
+        return uvIndex switch {
+            < 3 => "Low",
+            < 6 => "Moderate",
+            < 8 => "High",
+            < 11 => "Very High",
+            _ => "Extreme"
+        };
     }
 
     #endregion
@@ -186,6 +204,23 @@ public static class PrintData {
         }
 
         return $"{forecast.PrecipitationMm} mm";
+    }
+    
+    private static string ShowForecastUvIndex() {
+        var forecast = Data.Forecast.ForecastsDay[1].Day;
+        var uvIndex = forecast.UvIndex;
+
+        if (uvIndex == 0) {
+            return "No UV Index";
+        }
+
+        return uvIndex switch {
+            < 3 => "Low",
+            < 6 => "Moderate",
+            < 8 => "High",
+            < 11 => "Very High",
+            _ => "Extreme"
+        };
     }
 
     #endregion

@@ -30,6 +30,8 @@ public class Day {
     [JsonProperty("daily_chance_of_rain")] public decimal ChanceOfRain { get; set; }
     [JsonProperty("daily_chance_of_snow")] public decimal ChanceOfSnow { get; set; }
     
+    [JsonProperty("uv")] public decimal UvIndex { get; set; }
+    
     [JsonProperty("condition")] public Condition Condition { get; set; } = null!;
 }
 
