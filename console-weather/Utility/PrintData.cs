@@ -167,10 +167,10 @@ public static class PrintData {
         var forecast = Data.Forecast.ForecastsDay[1].Day;
         
         if (UnitType.Unit == Units.UnitType.Us) {
-            return $"\nTemperature Range: {forecast.MinTempF}°F - {forecast.MaxTempF}°F (average: {forecast.AvgTempF})°F";
+            return $"\nTemperature Range: {forecast.MinTempF}°F - {forecast.MaxTempF}°F (average: {forecast.AvgTempF}°F)";
         }
         
-        return $"\nTemperature Range: {forecast.MinTempC}°C - {forecast.MaxTempC}°C (average: {forecast.AvgTempC})°C";
+        return $"\nTemperature Range: {forecast.MinTempC}°C - {forecast.MaxTempC}°C (average: {forecast.AvgTempC}°C)";
     }
 
     private static string ShowForecastWindSpeed() {
