@@ -6,7 +6,6 @@ namespace console_weather.Weather;
 public class Current {
     public Condition Condition { get; set; } = null!;
     [JsonProperty("air_quality")] public AirQuality AirQuality { get; set; } = null!;
-
     [JsonProperty("last_updated")] public string LastUpdated { get; set; } = null!;
 
     // celsius
@@ -36,4 +35,5 @@ public class Current {
     [JsonProperty("cloud")] public int Cloud { get; set; }
     
     [JsonProperty("uv")] public decimal UvIndex { get; set; }
+    [JsonProperty("is_day")] public int IsDay { get; set; }
 }

@@ -6,4 +6,5 @@ public struct Settings {
     public static bool ShowForecast { get; set; }
     public static Units.UnitType Units { get; set; }
     public static bool ShowAirQuality { get; set; }
+    public static bool DontShowIcons { get; set; }
 }

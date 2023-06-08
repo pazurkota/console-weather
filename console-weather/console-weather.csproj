@@ -15,13 +15,13 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/pazurkota/console-weather</PackageProjectUrl>
         <Description>Simple CLI App to check weather in C#</Description>
-        <PackageVersion>1.5</PackageVersion>
-        <VersionPrefix>1.5</VersionPrefix>
+        <PackageVersion>1.6</PackageVersion>
+        <VersionPrefix>1.6</VersionPrefix>
         <Title>Console Weather</Title>
         <Copyright>Copyright (c) 2023 pazurk0ta</Copyright>
         <RepositoryUrl>https://github.com/pazurkota/console-weather</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageReleaseNotes>Changed response look, added precipitation and uv index</PackageReleaseNotes>
+        <PackageReleaseNotes>Added weather icons and --dont-show-icons argument</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
