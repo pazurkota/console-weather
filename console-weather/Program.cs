@@ -36,16 +36,23 @@ public static class Program {
             new []{"--air-quality", "-a"},
             () => false,
             "Show air quality"
-            );
+        );
+        
+        var iconsOption = new Option<bool>(
+            new []{"--dont-show-icons"},
+            () => false,
+            "Disable weather icons"
+        );
 
         var rootCommand = new RootCommand {
             cityOption,
             alertsOption,
             forecastOption,
             unitsOption,
-            airQualityOption
+            airQualityOption,
+            iconsOption
         };
-        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption, unitsOption, airQualityOption);
+        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption, unitsOption, airQualityOption, iconsOption);
 
         var commandLineBuilder = new CommandLineBuilder(rootCommand)
             .UseDefaults();
@@ -54,12 +61,13 @@ public static class Program {
         return await parser.InvokeAsync(args).ConfigureAwait(false);
     }
 
-    private static void OnHandle(string cityName, bool showAlerts, bool showForecast, Units.UnitType units, bool airQuality) {
+    private static void OnHandle(string cityName, bool showAlerts, bool showForecast, Units.UnitType units, bool airQuality, bool showIcons) {
         CityName = cityName ?? "auto:ip";
         DontShowAlerts = showAlerts;
         ShowForecast = showForecast;
         Settings.Units = units;
         ShowAirQuality = airQuality;
+        DontShowIcons = showIcons;
 
         // Parse and show data
         Console.WriteLine(PrintData.Print());
