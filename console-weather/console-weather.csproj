@@ -15,8 +15,8 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/pazurkota/console-weather</PackageProjectUrl>
         <Description>Simple CLI App to check weather in C#</Description>
-        <PackageVersion>1.6</PackageVersion>
-        <VersionPrefix>1.6</VersionPrefix>
+        <PackageVersion>1.6.1</PackageVersion>
+        <VersionPrefix>1.6.1</VersionPrefix>
         <Title>Console Weather</Title>
         <Copyright>Copyright (c) 2023 pazurk0ta</Copyright>
         <RepositoryUrl>https://github.com/pazurkota/console-weather</RepositoryUrl>
