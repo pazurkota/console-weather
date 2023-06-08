@@ -1,4 +1,5 @@
 ﻿using console_weather.API;
+using console_weather.Icons;
 
 namespace console_weather.Utility; 
 
@@ -8,21 +9,22 @@ public static class PrintData {
     
     public static string Print() {
         string str = "";
-            
-            str += "CURRENT WEATHER:\n";
-            str += $"Current weather for {Data.Location.Name} in {Data.Location.Country} is {Data.Current.Condition.ConditionState}\n";
-            str += ShowTemperature();
-            str += $"Current Wind Speed: {ShowWindSpeed()} ({Data.Current.WindDirection})\n";
-            str += $"Current Air Pressure: {Data.Current.PressureMb} mbar\n";
-            str += $"Current Visibility: {ShowVisibility()}\n";
-            str += $"Current Precipitation: {ShowPrecipitation()}\n";
-            str += $"Current Humidity: {Data.Current.Humidity}%\n";
-            str += $"Current Cloud Cover: {Data.Current.Cloud}%\n";
-            str += $"Current UV Index: {Data.Current.UvIndex} ({ShowUvIndex()})";
-            str += ShowAlerts();
-            str += ShowForecast();
-            str += ShowAirQuality();
-            str += $"\n\nLast Update: {Data.Current.LastUpdated}";
+
+        str += IconsHandler.GetIcon() + "\n\n";
+        str += "CURRENT WEATHER:\n";
+        str += $"Current weather for {Data.Location.Name} in {Data.Location.Country} is {Data.Current.Condition.ConditionState}\n";
+        str += ShowTemperature();
+        str += $"Current Wind Speed: {ShowWindSpeed()} ({Data.Current.WindDirection})\n";
+        str += $"Current Air Pressure: {Data.Current.PressureMb} mbar\n";
+        str += $"Current Visibility: {ShowVisibility()}\n";
+        str += $"Current Precipitation: {ShowPrecipitation()}\n";
+        str += $"Current Humidity: {Data.Current.Humidity}%\n";
+        str += $"Current Cloud Cover: {Data.Current.Cloud}%\n";
+        str += $"Current UV Index: {Data.Current.UvIndex} ({ShowUvIndex()})";
+        str += ShowAlerts();
+        str += ShowForecast();
+        str += ShowAirQuality();
+        str += $"\n\nLast Update: {Data.Current.LastUpdated}";
 
         return str;
     }
