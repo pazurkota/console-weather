@@ -2,10 +2,11 @@
 
 
 ![Release](https://img.shields.io/github/v/release/pazurkota/console-weather?include_prereleases&style=for-the-badge&logo=github)
+![Repo Size](https://img.shields.io/github/repo-size/pazurkota/console-weather?logo=git&style=for-the-badge)
 ![Downloads](https://img.shields.io/nuget/dt/console-weather?style=for-the-badge&logo=nuget)
 ![License](https://img.shields.io/github/license/pazurkota/console-weather?style=for-the-badge)
 
-Console Weather project is a simple application project to check weather in console. You can get it on project official [NuGet](https://www.nuget.org/packages/console-weather/) page
+Console Weather project is a simple application project to check weather in console. You can get it on [NuGet](https://www.nuget.org/packages/console-weather/) page
 
 
 
@@ -26,7 +27,7 @@ Console Weather project is a simple application project to check weather in cons
 
 If you installed [.NET 7.0 or newer](https://dotnet.microsoft.com/en-us/download), just simply paste this command into console:
 ```console
-$ dotnet tool install --global console-weather --version 1.6.0
+$ dotnet tool install --global console-weather --version 1.6.1
 ```
 
 If you want to update, just type:
