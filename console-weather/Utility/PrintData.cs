@@ -9,8 +9,8 @@ public static class PrintData {
     
     public static string Print() {
         string str = "";
-
-        str += IconsHandler.GetIcon() + "\n\n";
+        
+        str += ShowIcon();
         str += "CURRENT WEATHER:\n";
         str += $"Current weather for {Data.Location.Name} in {Data.Location.Country} is {Data.Current.Condition.ConditionState}\n";
         str += ShowTemperature();
@@ -27,6 +27,11 @@ public static class PrintData {
         str += $"\n\nLast Update: {Data.Current.LastUpdated}";
 
         return str;
+    }
+
+    private static string ShowIcon() {
+        if (Settings.DontShowIcons) return "";
+        return $"{IconsHandler.GetIcon()}\n\n";
     }
 
     private static string ShowAlerts() {
