@@ -2,6 +2,7 @@
 
 
 ![Release](https://img.shields.io/github/v/release/pazurkota/console-weather?include_prereleases&style=for-the-badge&logo=github)
+![Repo Size](https://img.shields.io/github/repo-size/pazurkota/console-weather?logo=git&style=for-the-badge)
 ![Downloads](https://img.shields.io/nuget/dt/console-weather?style=for-the-badge&logo=nuget)
 ![License](https://img.shields.io/github/license/pazurkota/console-weather?style=for-the-badge)
 
