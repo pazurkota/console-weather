@@ -1,33 +1,27 @@
-﻿using console_weather.API;
+﻿using System.Net;
+using console_weather.API;
 
 namespace console_weather.Icons; 
 
 public static class IconsHandler {
-    private static readonly string DayIconsPath = @"Icons\Day\";
-    private static readonly string NightIconsPath = @"Icons\Night\";
+    // icons
+    private static readonly string DayIconsUrl = "https://raw.githubusercontent.com/pazurkota/console-weather/master/console-weather/Icons/day/";
+    private static readonly string NightIconsUrl = "https://raw.githubusercontent.com/pazurkota/console-weather/master/console-weather/Icons/night/";
     
+    // data
     private static readonly int IsDay = ApiData.ParseData().Current.IsDay;
-    private static readonly int ConditionCole = ApiData.ParseData().Current.Condition.ConditionCode;
+    private static readonly int ConditionCode = ApiData.ParseData().Current.Condition.ConditionCode;
     
     public static string GetIcon() {
-        var icon = IsDay == 1 ? GetDayIcon() : GetNightIcon();
-        var iconContent = File.ReadAllText(icon);
+        var iconsUrl = IsDay == 1 ? DayIconsUrl : NightIconsUrl;
+        var icon = GetIconFromUrl(iconsUrl + GetConditionCode()[ConditionCode] + ".txt");
         
-        return iconContent;
-    }
-    
-    private static string GetDayIcon() {
-        var dayIcons = Directory.GetFiles(DayIconsPath);
-        var conditionCode = GetConditionCode()[ConditionCole];
-        var icon = dayIcons.FirstOrDefault(icon => icon.Contains(conditionCode));
-
         return icon;
     }
-    
-    private static string GetNightIcon() {
-        var nightIcons = Directory.GetFiles(NightIconsPath);
-        var conditionCode = GetConditionCode()[ConditionCole];
-        var icon = nightIcons.FirstOrDefault(icon => icon.Contains(conditionCode));
+
+    private static string GetIconFromUrl(string url) {
+        var client = new WebClient();
+        var icon = client.DownloadString(url);
 
         return icon;
     }
