@@ -129,6 +129,7 @@ Please look also at the [Code Of Conduct](https://github.com/pazurkota/console-w
 #### Used frameworks:
 - [Newtonsoft.Json](https://www.newtonsoft.com/json)
 - [RestSharp](https://restsharp.dev)
+- [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/)
 
 #### API and Icons:
 - [Weather API](https://www.weatherapi.com/)
