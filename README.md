@@ -5,7 +5,7 @@
 ![Downloads](https://img.shields.io/nuget/dt/console-weather?style=for-the-badge&logo=nuget)
 ![License](https://img.shields.io/github/license/pazurkota/console-weather?style=for-the-badge)
 
-Console Weather project is a simple application project to check weather in console. This project uses the [Weather API](https://www.weatherapi.com/) for best weather forecast
+Console Weather project is a simple application project to check weather in console. You can get it on project official [NuGet](https://www.nuget.org/packages/console-weather/) page
 
 
 
@@ -20,14 +20,13 @@ Console Weather project is a simple application project to check weather in cons
 - Show Weather Alerts
 - Show Weather Forecast for a next day
 - Show Air Quality
-
-
+- Show Weather Icons
 
 ## Installation
 
 If you installed [.NET 7.0 or newer](https://dotnet.microsoft.com/en-us/download), just simply paste this command into console:
 ```console
-$ dotnet tool install --global console-weather --version 1.2.1
+$ dotnet tool install --global console-weather --version 1.6.0
 ```
 
 If you want to update, just type:
@@ -54,44 +53,67 @@ $ weather -u Si
 
 # To get air quality data, type:
 $ weather -a
+
+# To show weather without icons, type:
+$ weather --dont-show-icons
 ```
 
 
 ## Demo
 ```console
-$ weather -c "Kansas City" --no-alerts
+$ weather -c "Kansas City" --no-alerts -f -a
+
+                :::
+        .:      ===     .:.
+       .===.    ===    .==-
+         ==-           ==-
+  .:.        .::---::.            ...
+ .====:   .-===========-    ..............
+    :-   -===--------====:....           ....
+        ===------------=-...               ...
+.....  :===-------::::.....                 ...
+====-  :==------:.........                   ...
+       .===---:...                           ...
+        -===-:...                            .....
+   :-=:  :=-:...                                ....
+  ===:.   ....                                    ...
+         ...                                      ...
+        ...                                       ...
+         ...                                     ....
+         ....                                   ....
+           .......................................
 
 CURRENT WEATHER:
-Current weather for London in United Kingdom is Partly cloudy
-The temperature is 19,0°C, but feels like 19,0°C
+Current weather for Kansas City in United States of America is Partly cloudy
+The temperature is 22,2°C, but feels like 24,6°C
 
-Current Wind Speed: 22,0 kph (NE)
-Current Air Pressure: 1024,0 mbar
-Current Visibility: 10,0 kilometers
+Current Wind Speed: 11,2 kph (E)
+Current Air Pressure: 1011,0 mbar
+Current Visibility: 14,0 kilometers
 Current Precipitation: 0,0 mm
-Current Humidity: 46%
-Current Cloud Cover: 50%
-Current UV Index: 5,0 (Moderate)
+Current Humidity: 71%
+Current Cloud Cover: 25%
+Current UV Index: 4,0 (Moderate)
 
 FORECAST:
-Tomorrow it will be Cloudy
-Temperature Range: 7,9°C - 17,7°C (average: 13,2)°C
-Maximum Wind Speed: 19,8 kph
+Tomorrow it will be Partly cloudy
+Temperature Range: 13,8°C - 26,2°C (average: 19,9°C)
+Maximum Wind Speed: 13,7 kph
 Average Visibility: 10,0 kilometers
 Maximum Precipitation: 0,0 mm
-UV Index: 3,0 (Moderate)
+UV Index: 5,0 (Moderate)
 Chance of rain/snow: 0% / 0%
 
 AIR QUALITY:
-Carbon Monoxide: 205,30 ug/m3
-Nitrogen Dioxide: 4,40 ug/m3
-Ozone: 113,0 ug/m3
-Sulphur Dioxide: 3,30 ug/m3
-Fine Particles Matter: 4,40 ug/m3
-Coarse Particles Matter: 7,5 ug/m3
+Carbon Monoxide: 337,10 ug/m3
+Nitrogen Dioxide: 13,0 ug/m3
+Ozone: 37,90 ug/m3
+Sulphur Dioxide: 2,30 ug/m3
+Fine Particles Matter: 13,10 ug/m3
+Coarse Particles Matter: 13,5 ug/m3
 US Epa Index: 1 (Good)
 
-Last Update: 2023-05-20 14:45
+Last Update: 2023-06-08 09:00
 ```
 ## Contributing
 
@@ -104,7 +126,13 @@ Please look also at the [Code Of Conduct](https://github.com/pazurkota/console-w
 
 ## Acknowledgements
 
- - [NuGet Page](https://www.nuget.org/packages/console-weather/)
+#### Used frameworks:
+- [Newtonsoft.Json](https://www.newtonsoft.com/json)
+- [RestSharp](https://restsharp.dev)
+
+#### API and Icons:
+- [Weather API](https://www.weatherapi.com/)
+- [ASCII Converter](https://ascii-generator.site)
 
 
 ## Lessons Learned
