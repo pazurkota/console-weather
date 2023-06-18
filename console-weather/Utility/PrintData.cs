@@ -20,11 +20,11 @@ public static class PrintData {
         str += $"Current Precipitation: {ShowPrecipitation()}\n";
         str += $"Current Humidity: {Data.Current.Humidity}%\n";
         str += $"Current Cloud Cover: {Data.Current.Cloud}%\n";
-        str += $"Current UV Index: {Data.Current.UvIndex} ({ShowUvIndex()})";
+        str += $"Current UV Index: {Data.Current.UvIndex} ({ShowUvIndex()})\n\n";
         str += ShowAlerts();
         str += ShowForecast();
         str += ShowAirQuality();
-        str += $"\n\nLast Update: {Data.Current.LastUpdated}";
+        str += $"Last Update: {Data.Current.LastUpdated}";
 
         return str;
     }
@@ -41,7 +41,7 @@ public static class PrintData {
             return "";
         }
 
-        return alerts.WeatherAlerts.Aggregate("\n\nALERTS:\n", (current, alert) => current + $"{alert.AlertHeadline}:\n{alert.AlertDescription}\n\n");
+        return alerts.WeatherAlerts.Aggregate("ALERTS:\n", (current, alert) => current + $"{alert.AlertHeadline}:\n{alert.AlertDescription}\n\n");
     }
 
     private static string ShowForecast() {
@@ -53,14 +53,14 @@ public static class PrintData {
         
         var forecast = Data.Forecast.ForecastsDay[1].Day;
 
-        str += "\n\nFORECAST:";
+        str += "FORECAST:";
         str += $"\nTomorrow it will be {forecast.Condition.ConditionState}";
         str += $"{ShowForecastTemp()}";
         str += $"\nMaximum Wind Speed: {ShowForecastWindSpeed()}";
         str += $"\nAverage Visibility: {ShowForecastVisibility()}";
         str += $"\nMaximum Precipitation: {ShowForecastPrecipitation()}";
         str += $"\nUV Index: {forecast.UvIndex} ({ShowForecastUvIndex()})";
-        str += $"\nChance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%";
+        str += $"\nChance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%\n\n";
         
         return str;
     }
@@ -135,14 +135,14 @@ public static class PrintData {
         
         string str = "";
         
-        str += "\n\nAIR QUALITY:\n";
+        str += "AIR QUALITY:\n";
         str += $"Carbon Monoxide: {Math.Round(airQuality.Co, 2)} μg/m³\n";
         str += $"Nitrogen Dioxide: {Math.Round(airQuality.No2, 2)} μg/m³\n";
         str += $"Ozone: {Math.Round(airQuality.O3, 2)} μg/m³\n";
         str += $"Sulphur Dioxide: {Math.Round(airQuality.So2, 2)} μg/m³\n";
         str += $"Fine Particles Matter: {Math.Round(airQuality.Pm25, 2)} μg/m³\n";
         str += $"Coarse Particles Matter: {Math.Round(airQuality.Pm10, 2)} μg/m³\n";
-        str += $"US Epa Index: {airQuality.UsEpaIndex} ({PrintEpaStandards(airQuality.UsEpaIndex)})";
+        str += $"US Epa Index: {airQuality.UsEpaIndex} ({PrintEpaStandards(airQuality.UsEpaIndex)})\n\n";
         
         return str;
     }
