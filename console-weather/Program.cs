@@ -63,7 +63,7 @@ public static class Program {
 
     private static void OnHandle(string cityName, bool showAlerts, bool showForecast, Units.UnitType units, bool airQuality, bool showIcons) {
         CityName = cityName ?? "auto:ip";
-        DontShowAlerts = showAlerts;
+        DontShowAlerts = showAlerts || DefaultSettings.DontShowAlerts();
         ShowForecast = showForecast;
         Settings.Units = units;
         ShowAirQuality = airQuality;
