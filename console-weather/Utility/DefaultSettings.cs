@@ -21,4 +21,11 @@ public class DefaultSettings {
 
         return dontShowAlerts;
     }
+
+    public static bool ShowForecast() {
+        JObject jObject = JObject.Parse(GetJsonContent());
+        bool showForecast = jObject["show-forecast"]?.ToObject<bool>() ?? false;
+        
+        return showForecast;
+    }
 }
