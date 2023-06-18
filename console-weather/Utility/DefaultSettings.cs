@@ -55,4 +55,11 @@ public class DefaultSettings {
         
         return dontShowIcons;
     }
+
+    public static string GetCityName() {
+        JObject jObject = JObject.Parse(GetJsonContent());
+        string cityName = jObject["default-city"]?.ToObject<string>() ?? "auto:ip";
+        
+        return cityName;
+    }
 }
