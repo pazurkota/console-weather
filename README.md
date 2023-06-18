@@ -81,6 +81,13 @@ This project uses default settings that are stored in `config.json` file. You ca
 - `"air-quality"` - if set to `true`, air quality data will be shown
 - `"dont-show-icons"` - if set to `true`, weather icons won't be shown
 
+> **Note**: These settings is not required. You can use application without them.
+
+The config file is kept in:
+- Windows: `C:\Users\USERNAME\Documents\weather_data\config.json`
+- MacOS: `/Users/USERNAME/Documents/weather_data/config.json`
+- Linux: `/home/USERNAME/Documents/weather_data/config.json`
+
 
 ## Demo
 ```console
