@@ -28,4 +28,31 @@ public class DefaultSettings {
         
         return showForecast;
     }
+
+    public static Units.UnitType GetUnitType() {
+        JObject jObject = JObject.Parse(GetJsonContent());
+        string unitType = jObject["units"]?.ToObject<string>()?.ToLower() ?? "eu";
+        
+        return unitType switch {
+            "eu" => Units.UnitType.Eu,
+            "us" => Units.UnitType.Us,
+            "si" => Units.UnitType.Si,
+            "uk" => Units.UnitType.Uk,
+            _ => Units.UnitType.Eu
+        };
+    }
+    
+    public static bool GetAirQuality() {
+        JObject jObject = JObject.Parse(GetJsonContent());
+        bool airQuality = jObject["air-quality"]?.ToObject<bool>() ?? false;
+        
+        return airQuality;
+    }
+    
+    public static bool DontShowIcons() {
+        JObject jObject = JObject.Parse(GetJsonContent());
+        bool dontShowIcons = jObject["dont-show-icons"]?.ToObject<bool>() ?? false;
+        
+        return dontShowIcons;
+    }
 }
