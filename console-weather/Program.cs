@@ -16,31 +16,31 @@ public static class Program {
 
         var alertsOption = new Option<bool>(
             "--no-alerts",
-            () => false,
+            DefaultSettings.DontShowAlerts,
             "Hide weather alerts"
         );
 
         var forecastOption = new Option<bool>(
             new []{"--forecast", "-f"},
-            () => false,
+            DefaultSettings.ShowForecast,
             "Show weather forecast"
         );
 
         var unitsOption = new Option<Units.UnitType>(
             new []{"--units", "-u"},
-            () => Units.UnitType.Eu,
+            DefaultSettings.GetUnitType,
             "Set weather units"
         );
 
         var airQualityOption = new Option<bool>(
             new []{"--air-quality", "-a"},
-            () => false,
+            DefaultSettings.GetAirQuality,
             "Show air quality"
         );
-        
+
         var iconsOption = new Option<bool>(
-            new []{"--dont-show-icons"},
-            () => false,
+            new[] { "--dont-show-icons" },
+            DefaultSettings.DontShowIcons,
             "Disable weather icons"
         );
 
@@ -62,7 +62,7 @@ public static class Program {
     }
 
     private static void OnHandle(string cityName, bool showAlerts, bool showForecast, Units.UnitType units, bool airQuality, bool showIcons) {
-        CityName = cityName ?? "auto:ip";
+        CityName = cityName ?? DefaultSettings.GetCityName();
         DontShowAlerts = showAlerts;
         ShowForecast = showForecast;
         Settings.Units = units;
