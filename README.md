@@ -36,6 +36,7 @@ $ dotnet tool update --global console-weather
 ```
 ## Usage
 
+### Commands:
 ```console
 # To use aplication, type:
 $ weather
@@ -58,6 +59,34 @@ $ weather -a
 # To show weather without icons, type:
 $ weather --dont-show-icons
 ```
+
+### Default settings:
+This project uses default settings that are stored in `config.json` file. You can change them by editing this file:
+```json
+{
+  "api-key": "api-key",
+  "default-city": "Sydney",
+  "dont-show-alerts": false,
+  "show-forecast": false,
+  "units": "EU",
+  "air-quality": true,
+  "dont-show-icons": false
+}
+```
+
+- `"default-city"` - default city that will be used if you don't specify it in command
+- `"dont-show-alerts"` - if set to `true`, weather alerts won't be shown
+- `"show-forecast"` - if set to `true`, weather forecast will be shown
+- `"units"` - units that will be used to show weather data. Possible values: `eu`, `si`, `us`, `uk`
+- `"air-quality"` - if set to `true`, air quality data will be shown
+- `"dont-show-icons"` - if set to `true`, weather icons won't be shown
+
+> **Note**: These settings is not required. You can use application without them.
+
+The config file is kept in:
+- Windows: `C:\Users\USERNAME\Documents\weather_data\config.json`
+- MacOS: `/Users/USERNAME/Documents/weather_data/config.json`
+- Linux: `/home/USERNAME/Documents/weather_data/config.json`
 
 
 ## Demo
