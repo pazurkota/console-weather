@@ -43,6 +43,12 @@ public static class Program {
             DefaultSettings.DontShowIcons,
             "Disable weather icons"
         );
+        
+        var astronomyOption = new Option<bool>(
+            new[] { "--astronomy", "-as" },
+            DefaultSettings.ShowAstronomy,
+            "Show astronomy data"
+        );
 
         var rootCommand = new RootCommand {
             cityOption,
@@ -50,9 +56,10 @@ public static class Program {
             forecastOption,
             unitsOption,
             airQualityOption,
-            iconsOption
+            iconsOption,
+            astronomyOption
         };
-        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption, unitsOption, airQualityOption, iconsOption);
+        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption, unitsOption, airQualityOption, iconsOption, astronomyOption);
 
         var commandLineBuilder = new CommandLineBuilder(rootCommand)
             .UseDefaults();
@@ -61,13 +68,16 @@ public static class Program {
         return await parser.InvokeAsync(args).ConfigureAwait(false);
     }
 
-    private static void OnHandle(string cityName, bool showAlerts, bool showForecast, Units.UnitType units, bool airQuality, bool showIcons) {
+    private static void OnHandle(string cityName,bool showAlerts,bool showForecast, 
+        Units.UnitType units, bool airQuality, bool showIcons, bool showAstronomy) {
+        
         CityName = cityName ?? DefaultSettings.GetCityName();
         DontShowAlerts = showAlerts;
         ShowForecast = showForecast;
         Settings.Units = units;
         ShowAirQuality = airQuality;
         DontShowIcons = showIcons;
+        ShowAstronomy = showAstronomy;
 
         // Parse and show data
         Console.WriteLine(PrintData.Print());
