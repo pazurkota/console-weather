@@ -62,4 +62,11 @@ public class DefaultSettings {
         
         return cityName;
     }
+
+    public static bool ShowAstronomy() {
+        JObject jObject = JObject.Parse(GetJsonContent());
+        bool showAstronomy = jObject["show-astronomy"]?.ToObject<bool>() ?? false;
+        
+        return showAstronomy;
+    }
 }
