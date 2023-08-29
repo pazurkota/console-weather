@@ -67,6 +67,10 @@ public static class PrintData {
     }
 
     private static string ShowAstronomy() {
+        if (!Settings.ShowAstronomy) {
+            return "";
+        }
+        
         string str = "";
         
         str += "ASTRONOMY:";
