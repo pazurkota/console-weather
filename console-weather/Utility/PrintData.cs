@@ -24,6 +24,7 @@ public static class PrintData {
         str += ShowAlerts();
         str += ShowForecast();
         str += ShowAirQuality();
+        str += ShowAstronomy();
         str += $"Last Update: {Data.Current.LastUpdated}";
 
         return str;
@@ -61,6 +62,20 @@ public static class PrintData {
         str += $"\nMaximum Precipitation: {ShowForecastPrecipitation()}";
         str += $"\nUV Index: {forecast.UvIndex} ({ShowForecastUvIndex()})";
         str += $"\nChance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%\n\n";
+        
+        return str;
+    }
+
+    private static string ShowAstronomy() {
+        string str = "";
+        
+        str += "ASTRONOMY:";
+        str += $"\nSunrise: {Data.Forecast.ForecastsDay[0].Astro.Sunrise}";
+        str += $"\nSunset: {Data.Forecast.ForecastsDay[0].Astro.Sunset}";
+        str += $"\nMoonrise: {Data.Forecast.ForecastsDay[0].Astro.Moonrise}";
+        str += $"\nMoonset: {Data.Forecast.ForecastsDay[0].Astro.Moonset}";
+        str += $"\nMoon Phase: {Data.Forecast.ForecastsDay[0].Astro.MoonPhase}";
+        str += $"\nMoon Illumination: {Data.Forecast.ForecastsDay[0].Astro.MoonIllumination}%\n\n";
         
         return str;
     }
