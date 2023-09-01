@@ -69,4 +69,11 @@ public class DefaultSettings {
         
         return showAstronomy;
     }
+
+    public static bool ShowHourlyWeather() {
+        JObject jObject = JObject.Parse(GetJsonContent());
+        bool showHourlyWeather = jObject["show-hourly-weather"]?.ToObject<bool>() ?? false;
+        
+        return showHourlyWeather;
+    }
 }
