@@ -21,6 +21,7 @@ public static class PrintData {
         str += $"Current Humidity: {Data.Current.Humidity}%\n";
         str += $"Current Cloud Cover: {Data.Current.Cloud}%\n";
         str += $"Current UV Index: {Data.Current.UvIndex} ({ShowUvIndex()})\n\n";
+        str += ShowHourlyWeather();
         str += ShowAlerts();
         str += ShowForecast();
         str += ShowAirQuality();
@@ -33,6 +34,18 @@ public static class PrintData {
     private static string ShowIcon() {
         if (Settings.DontShowIcons) return "";
         return $"{IconsHandler.GetIcon()}\n\n";
+    }
+
+    private static string ShowHourlyWeather() {
+        var hourly = HourlyWeather.GetHourlyWeather(Data);
+        string str = "Weather for the next 5 hours:\n";
+        
+        foreach (var hour in hourly) {
+            str += $"{hour.DateTime.ToShortTimeString()} - {hour.Condition.ConditionState} - {hour.Temperature}°C\n";    
+        }
+        
+        str += "\n";
+        return str;
     }
 
     private static string ShowAlerts() {
