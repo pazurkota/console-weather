@@ -49,6 +49,12 @@ public static class Program {
             DefaultSettings.ShowAstronomy,
             "Show astronomy data"
         );
+        
+        var hourlyWeatherOption = new Option<bool>(
+            new[] { "--hourly-weather", "-hw" },
+            DefaultSettings.ShowHourlyWeather,
+            "Show hourly weather"
+        );
 
         var rootCommand = new RootCommand {
             cityOption,
@@ -57,9 +63,18 @@ public static class Program {
             unitsOption,
             airQualityOption,
             iconsOption,
-            astronomyOption
+            astronomyOption,
+            hourlyWeatherOption
         };
-        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption, unitsOption, airQualityOption, iconsOption, astronomyOption);
+        rootCommand.SetHandler(OnHandle, 
+            cityOption, 
+            alertsOption, 
+            forecastOption, 
+            unitsOption, 
+            airQualityOption, 
+            iconsOption, 
+            astronomyOption,
+            hourlyWeatherOption);
 
         var commandLineBuilder = new CommandLineBuilder(rootCommand)
             .UseDefaults();
@@ -69,7 +84,7 @@ public static class Program {
     }
 
     private static void OnHandle(string cityName,bool showAlerts,bool showForecast, 
-        Units.UnitType units, bool airQuality, bool showIcons, bool showAstronomy) {
+        Units.UnitType units, bool airQuality, bool showIcons, bool showAstronomy, bool showHourlyWeather) {
         
         CityName = cityName ?? DefaultSettings.GetCityName();
         DontShowAlerts = showAlerts;
@@ -78,6 +93,7 @@ public static class Program {
         ShowAirQuality = airQuality;
         DontShowIcons = showIcons;
         ShowAstronomy = showAstronomy;
+        ShowHourlyWeather = showHourlyWeather;
 
         // Parse and show data
         Console.WriteLine(PrintData.Print());

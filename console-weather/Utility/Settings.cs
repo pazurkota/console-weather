@@ -8,4 +8,5 @@ public struct Settings {
     public static bool ShowAirQuality { get; set; }
     public static bool DontShowIcons { get; set; }
     public static bool ShowAstronomy { get; set; }
+    public static bool ShowHourlyWeather { get; set; }
 }
