@@ -38,7 +38,13 @@ public static class PrintData {
 
     private static string ShowHourlyWeather() {
         var hourly = HourlyWeather.GetHourlyWeather(Data);
-        string str = "Weather for the next 5 hours:\n";
+        string str = "";
+        
+        if (!Settings.ShowHourlyWeather) {
+            return "";
+        }
+        
+        str += "Weather for the next 5 hours:\n";
         
         foreach (var hour in hourly) {
             str += $"{hour.DateTime.ToShortTimeString()} - {hour.Condition.ConditionState} - {hour.Temperature}°C\n";    
