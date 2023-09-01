@@ -50,6 +50,8 @@ public class Hour {
         Units.UnitType.Eu => TemperatureC,
         _ => TemperatureF
     };
+    
+    public DateTime DateTime => DateTime.Parse(Time);
 }
 
 public class Astro {
