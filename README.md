@@ -27,7 +27,7 @@ Console Weather project is a simple application project to check weather in cons
 
 If you installed [.NET 7.0 or newer](https://dotnet.microsoft.com/en-us/download), just simply paste this command into console:
 ```console
-$ dotnet tool install --global console-weather --version 1.7.0
+$ dotnet tool install --global console-weather --version 1.7.1
 ```
 
 If you want to update, just type:
@@ -58,6 +58,12 @@ $ weather -a
 
 # To show weather without icons, type:
 $ weather --dont-show-icons
+
+# To show astronomical data, type:
+$ weather --astronomy
+
+# To show hourly weather forecast, type:
+$ weather --hourly-weather
 ```
 
 ### Default settings:
@@ -70,7 +76,9 @@ This project uses default settings that are stored in `config.json` file. You ca
   "show-forecast": false,
   "units": "EU",
   "air-quality": true,
-  "dont-show-icons": false
+  "dont-show-icons": false,
+  "show-astronomy": false,
+  "show-hourly-weather": false
 }
 ```
 
@@ -80,6 +88,8 @@ This project uses default settings that are stored in `config.json` file. You ca
 - `"units"` - units that will be used to show weather data. Possible values: `eu`, `si`, `us`, `uk`
 - `"air-quality"` - if set to `true`, air quality data will be shown
 - `"dont-show-icons"` - if set to `true`, weather icons won't be shown
+- `"show-astronomy"` - if set to `true`, astronomical data will be shown
+- `"show-hourly-weather"` - if set to `true`, hourly weather forecast (for 5 hours) will be shown
 
 > **Note**: These settings is not required. You can use application without them.
 
