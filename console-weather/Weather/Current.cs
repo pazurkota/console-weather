@@ -2,7 +2,6 @@
 
 namespace console_weather.Weather;
 
-// Get current weather state
 public class Current {
     public Condition Condition { get; set; } = null!;
     [JsonProperty("air_quality")] public AirQuality AirQuality { get; set; } = null!;
