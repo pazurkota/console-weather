@@ -10,7 +10,7 @@ Console Weather project is a simple application project to check weather in cons
 
 
 
-![App Screenshot](https://media.discordapp.net/attachments/973146682499956746/1109483472394911834/image.png?width=835&height=515)
+![App Screenshot](Images/readme_image.png)
 
 
 ## Features
