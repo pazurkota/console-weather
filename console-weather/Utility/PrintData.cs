@@ -21,9 +21,11 @@ public static class PrintData {
         str += $"Current Humidity: {Data.Current.Humidity}%\n";
         str += $"Current Cloud Cover: {Data.Current.Cloud}%\n";
         str += $"Current UV Index: {Data.Current.UvIndex} ({ShowUvIndex()})\n\n";
+        str += ShowHourlyWeather();
         str += ShowAlerts();
         str += ShowForecast();
         str += ShowAirQuality();
+        str += ShowAstronomy();
         str += $"Last Update: {Data.Current.LastUpdated}";
 
         return str;
@@ -32,6 +34,24 @@ public static class PrintData {
     private static string ShowIcon() {
         if (Settings.DontShowIcons) return "";
         return $"{IconsHandler.GetIcon()}\n\n";
+    }
+
+    private static string ShowHourlyWeather() {
+        var hourly = HourlyWeather.GetHourlyWeather(Data);
+        string str = "";
+        
+        if (!Settings.ShowHourlyWeather) {
+            return "";
+        }
+        
+        str += "Weather for the next 5 hours:\n";
+        
+        foreach (var hour in hourly) {
+            str += $"{hour.DateTime.ToShortTimeString()} - {hour.Condition.ConditionState} - {hour.Temperature}°C\n";    
+        }
+        
+        str += "\n";
+        return str;
     }
 
     private static string ShowAlerts() {
@@ -61,6 +81,24 @@ public static class PrintData {
         str += $"\nMaximum Precipitation: {ShowForecastPrecipitation()}";
         str += $"\nUV Index: {forecast.UvIndex} ({ShowForecastUvIndex()})";
         str += $"\nChance of rain/snow: {forecast.ChanceOfRain}% / {forecast.ChanceOfSnow}%\n\n";
+        
+        return str;
+    }
+
+    private static string ShowAstronomy() {
+        if (!Settings.ShowAstronomy) {
+            return "";
+        }
+        
+        string str = "";
+        
+        str += "ASTRONOMY:";
+        str += $"\nSunrise: {Data.Forecast.ForecastsDay[0].Astro.Sunrise}";
+        str += $"\nSunset: {Data.Forecast.ForecastsDay[0].Astro.Sunset}";
+        str += $"\nMoonrise: {Data.Forecast.ForecastsDay[0].Astro.Moonrise}";
+        str += $"\nMoonset: {Data.Forecast.ForecastsDay[0].Astro.Moonset}";
+        str += $"\nMoon Phase: {Data.Forecast.ForecastsDay[0].Astro.MoonPhase}";
+        str += $"\nMoon Illumination: {Data.Forecast.ForecastsDay[0].Astro.MoonIllumination}%\n\n";
         
         return str;
     }

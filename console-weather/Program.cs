@@ -43,6 +43,18 @@ public static class Program {
             DefaultSettings.DontShowIcons,
             "Disable weather icons"
         );
+        
+        var astronomyOption = new Option<bool>(
+            new[] { "--astronomy", "-as" },
+            DefaultSettings.ShowAstronomy,
+            "Show astronomy data"
+        );
+        
+        var hourlyWeatherOption = new Option<bool>(
+            new[] { "--hourly-weather", "-hw" },
+            DefaultSettings.ShowHourlyWeather,
+            "Show hourly weather"
+        );
 
         var rootCommand = new RootCommand {
             cityOption,
@@ -50,9 +62,19 @@ public static class Program {
             forecastOption,
             unitsOption,
             airQualityOption,
-            iconsOption
+            iconsOption,
+            astronomyOption,
+            hourlyWeatherOption
         };
-        rootCommand.SetHandler(OnHandle, cityOption, alertsOption, forecastOption, unitsOption, airQualityOption, iconsOption);
+        rootCommand.SetHandler(OnHandle, 
+            cityOption, 
+            alertsOption, 
+            forecastOption, 
+            unitsOption, 
+            airQualityOption, 
+            iconsOption, 
+            astronomyOption,
+            hourlyWeatherOption);
 
         var commandLineBuilder = new CommandLineBuilder(rootCommand)
             .UseDefaults();
@@ -61,13 +83,17 @@ public static class Program {
         return await parser.InvokeAsync(args).ConfigureAwait(false);
     }
 
-    private static void OnHandle(string cityName, bool showAlerts, bool showForecast, Units.UnitType units, bool airQuality, bool showIcons) {
+    private static void OnHandle(string cityName,bool showAlerts,bool showForecast, 
+        Units.UnitType units, bool airQuality, bool showIcons, bool showAstronomy, bool showHourlyWeather) {
+        
         CityName = cityName ?? DefaultSettings.GetCityName();
         DontShowAlerts = showAlerts;
         ShowForecast = showForecast;
         Settings.Units = units;
         ShowAirQuality = airQuality;
         DontShowIcons = showIcons;
+        ShowAstronomy = showAstronomy;
+        ShowHourlyWeather = showHourlyWeather;
 
         // Parse and show data
         Console.WriteLine(PrintData.Print());

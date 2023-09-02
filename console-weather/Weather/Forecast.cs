@@ -1,9 +1,12 @@
 ﻿using Newtonsoft.Json;
+using console_weather.Utility;
 
 namespace console_weather.Weather; 
 
 public class ForecastDay {
     [JsonProperty("day")] public Day Day { get; set; } = null!;
+    [JsonProperty("astro")] public Astro Astro { get; set; } = null!;
+    [JsonProperty("hour")] public List<Hour> Hours { get; set; } = null!;
 }
 
 public class Day {
@@ -33,6 +36,31 @@ public class Day {
     [JsonProperty("uv")] public decimal UvIndex { get; set; }
     
     [JsonProperty("condition")] public Condition Condition { get; set; } = null!;
+}
+
+public class Hour {
+    [JsonProperty("time")] public string Time { get; set; } = null!;
+    [JsonProperty("condition")] public Condition Condition { get; set; } = null!;
+    
+    [JsonProperty("temp_c")] public decimal TemperatureC { get; set; }
+    [JsonProperty("temp_f")] public decimal TemperatureF { get; set; }
+    
+    public decimal Temperature => Settings.Units switch {
+        Units.UnitType.Si => TemperatureC,
+        Units.UnitType.Eu => TemperatureC,
+        _ => TemperatureF
+    };
+    
+    public DateTime DateTime => DateTime.Parse(Time);
+}
+
+public class Astro {
+    [JsonProperty("sunrise")] public string Sunrise { get; set; }
+    [JsonProperty("sunset")] public string Sunset { get; set; }
+    [JsonProperty("moonrise")] public string Moonrise { get; set; }
+    [JsonProperty("moonset")] public string Moonset { get; set; }
+    [JsonProperty("moon_phase")] public string MoonPhase { get; set; }
+    [JsonProperty("moon_illumination")] public string MoonIllumination { get; set; }
 }
 
 public class Forecast {

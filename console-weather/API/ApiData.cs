@@ -42,8 +42,7 @@ public static class ApiData {
         }
     }
     
-    private static bool CheckApiKeyValidity(string? apiKey)
-    {
+    private static bool CheckApiKeyValidity(string? apiKey) {
         var client = new RestClient(BaseUrl);
         var request = new RestRequest($"forecast.json?key={apiKey}&q=Warsaw&aqi=no&alerts=no");
         
