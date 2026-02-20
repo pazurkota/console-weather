@@ -1,6 +1,4 @@
 ﻿using System.CommandLine;
-using System.CommandLine.Builder;
-using System.CommandLine.Parsing;
 using console_weather.Utility;
 using static console_weather.Utility.Settings;
 using Units = console_weather.Utility.Units;
@@ -9,52 +7,44 @@ namespace console_weather;
 
 public static class Program {
     public static async Task<int> Main(string[] args) {
-        var cityOption = new Option<string>(
-            new [] {"-c", "--city"},
-            "Get city name"
-        );
+        var cityOption = new Option<string>("--city", new[] {"-c"}) {
+            Description = "Get city name"
+        };
 
-        var alertsOption = new Option<bool>(
-            "--no-alerts",
-            DefaultSettings.DontShowAlerts,
-            "Hide weather alerts"
-        );
+        var alertsOption = new Option<bool>("--no-alerts") {
+            DefaultValueFactory = _ => DefaultSettings.DontShowAlerts(),
+            Description = "Hide weather alerts"
+        };
 
-        var forecastOption = new Option<bool>(
-            new []{"--forecast", "-f"},
-            DefaultSettings.ShowForecast,
-            "Show weather forecast"
-        );
+        var forecastOption = new Option<bool>("--forecast", new[] {"-f"}) {
+            DefaultValueFactory = _ => DefaultSettings.ShowForecast(),
+            Description = "Show weather forecast"
+        };
 
-        var unitsOption = new Option<Units.UnitType>(
-            new []{"--units", "-u"},
-            DefaultSettings.GetUnitType,
-            "Set weather units"
-        );
+        var unitsOption = new Option<Units.UnitType>("--units", new[] {"-u"}) {
+            DefaultValueFactory = _ => DefaultSettings.GetUnitType(),
+            Description = "Set weather units"
+        };
 
-        var airQualityOption = new Option<bool>(
-            new []{"--air-quality", "-a"},
-            DefaultSettings.GetAirQuality,
-            "Show air quality"
-        );
+        var airQualityOption = new Option<bool>("--air-quality", new[] {"-a"}) {
+            DefaultValueFactory = _ => DefaultSettings.GetAirQuality(),
+            Description = "Show air quality"
+        };
 
-        var iconsOption = new Option<bool>(
-            new[] { "--dont-show-icons" },
-            DefaultSettings.DontShowIcons,
-            "Disable weather icons"
-        );
+        var iconsOption = new Option<bool>("--dont-show-icons") {
+            DefaultValueFactory = _ => DefaultSettings.DontShowIcons(),
+            Description = "Disable weather icons"
+        };
         
-        var astronomyOption = new Option<bool>(
-            new[] { "--astronomy", "-as" },
-            DefaultSettings.ShowAstronomy,
-            "Show astronomy data"
-        );
+        var astronomyOption = new Option<bool>("--astronomy", new[] {"-as"}) {
+            DefaultValueFactory = _ => DefaultSettings.ShowAstronomy(),
+            Description = "Show astronomy data"
+        };
         
-        var hourlyWeatherOption = new Option<bool>(
-            new[] { "--hourly-weather", "-hw" },
-            DefaultSettings.ShowHourlyWeather,
-            "Show hourly weather"
-        );
+        var hourlyWeatherOption = new Option<bool>("--hourly-weather", new[] {"-hw"}) {
+            DefaultValueFactory = _ => DefaultSettings.ShowHourlyWeather(),
+            Description = "Show hourly weather"
+        };
 
         var rootCommand = new RootCommand {
             cityOption,
@@ -66,21 +56,17 @@ public static class Program {
             astronomyOption,
             hourlyWeatherOption
         };
-        rootCommand.SetHandler(OnHandle, 
-            cityOption, 
-            alertsOption, 
-            forecastOption, 
-            unitsOption, 
-            airQualityOption, 
-            iconsOption, 
-            astronomyOption,
-            hourlyWeatherOption);
+        rootCommand.SetAction(parseResult => OnHandle(
+            parseResult.GetValue(cityOption),
+            parseResult.GetValue(alertsOption),
+            parseResult.GetValue(forecastOption),
+            parseResult.GetValue(unitsOption),
+            parseResult.GetValue(airQualityOption),
+            parseResult.GetValue(iconsOption),
+            parseResult.GetValue(astronomyOption),
+            parseResult.GetValue(hourlyWeatherOption)));
 
-        var commandLineBuilder = new CommandLineBuilder(rootCommand)
-            .UseDefaults();
-        var parser = commandLineBuilder.Build();
-
-        return await parser.InvokeAsync(args).ConfigureAwait(false);
+        return await rootCommand.Parse(args).InvokeAsync();
     }
 
     private static void OnHandle(string cityName,bool showAlerts,bool showForecast, 
